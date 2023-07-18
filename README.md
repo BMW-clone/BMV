@@ -15,7 +15,7 @@ TypeScript (TS) :
 ---------
 - Take a look here before you start working on your App  ([https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html])
 - 100-Second video to explain TS ([https://youtu.be/zQnBQ4tB3ZA])
-- 43-minute video explaining TS [([https://youtu.be/1jMJDbq7ZX4])] :
+- 43-minute video explaining TS ([https://youtu.be/1jMJDbq7ZX4]) :
              Setup Typescript in React 
            | Components / Props / Interfaces 
            | UseState in Typescript 
