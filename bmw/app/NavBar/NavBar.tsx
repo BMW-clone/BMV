@@ -17,7 +17,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import './navBar.css'
+import './NavBar.css'
 
 
 const pages = [
