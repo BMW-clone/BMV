@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
@@ -214,6 +214,38 @@ const NavBar: FC = () => {
                             }}
                         >
 
+<<<<<<< HEAD
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              {/* <SearchIcon /> */}
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchKeyword}
+              onChange={handleSearchInputChange}
+            
+            />
+          </Search>
+=======
                         </Menu>
                     </Box>
 
@@ -247,6 +279,7 @@ const NavBar: FC = () => {
 
                         />
                     </Search>
+>>>>>>> e35f7da82eab7753bbfb8b37aa2a5293fec41fc8
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
