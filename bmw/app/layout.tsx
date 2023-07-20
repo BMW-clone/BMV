@@ -3,8 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './NavBar/NavBar'
-import { useRouter } from 'next/router'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { activationcode } from "./confirm/[activationCode]/page"
 
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
@@ -20,8 +20,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const path = usePathname()
+
   const condition = () => {
-    if (path === "/" || path === "/SignUp") {
+    if (path === "/" || path === "/SignUp" || path === "/confirm" || path === `/confirm/${activationcode.substring(9)}`) {
       return
     } else return <NavBar />
   }

@@ -22,6 +22,13 @@ module.exports=(sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         allowNull:false,
     },
+    isActive:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false,
+    },
+    activationCode:{
+        type:DataTypes.STRING,
+    },
     profilepic:{
         type:DataTypes.STRING,
         allowNull:false,
