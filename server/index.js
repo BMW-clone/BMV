@@ -2,7 +2,7 @@ const cors=require("cors")
 const express=require("express")
 const app=express()
 const {sequelize}=require("./database/index")
-const PORT=process.env.PORT||3000
+const PORT=process.env.PORT||5000
 require('dotenv').config()
 //!importing routes
 const Client=require("./router/client")

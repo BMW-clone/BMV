@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
@@ -194,7 +194,7 @@ function NavBar(){
           </Typography>
           <Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              {/* <SearchIcon /> */}
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"

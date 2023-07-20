@@ -1,10 +1,11 @@
+"use client"
 import {useEffect,useState} from 'react'
 // import Card from "./card/Card"
 import { useRouter } from 'next/router'
 import jwtDecoder from 'jwt-decode'
 import Cookies from "universal-cookie"
 import axios from "axios"
-import { userInfo } from 'os'
+
 
 
 type Props = {}
@@ -29,7 +30,7 @@ const Page = (props: Props) => {
    const userinfo =() => {
     const cookie = new Cookies()
     const token = jwtDecoder(cookie.get('jwt-token'))as {role:string,username:string}
-   if (token.role === "Client"){
+   if (token.role === "Client"){    
     axios.post<UserData>("http://localhost:3000/client/findOne",{username:token.username})
     .then((res)=>{
         setData(res.data)
@@ -38,21 +39,21 @@ const Page = (props: Props) => {
 } else return 
    }
    const updateClick = () =>{
-    router.push("/bmw/app/UserProfile")
+    router.push("/UserProfile")
    }
 
     return (
         <div className="banners">
-        <img className="coverImage" alt="" src={data?.coverpic}/>
+        {/* <img className="coverImage" alt="" src={data?.coverpic}/> */}
         <div className="editProfile">
           <div className="editProfile1" onClick={updateClick} >
             Edit Profile
           </div>
         </div>
-        <img className="profilePic" alt="" src={data?.profilepic}  />
+        {/* <img className="profilePic" alt="" src={data?.profilepic}  /> */}
         <div className="text1">
-          <div className="name">{data?.firstname +" "+data?.lastname}</div>
-          <div className="surName">@{data?.username}</div>
+          {/* <div className="name">{data?.firstname +" "+data?.lastname}</div> */}
+          {/* <div className="surName">@{data?.username}</div> */}
         </div>
       </div>
   ) 
