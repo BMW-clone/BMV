@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import './Card.css';
-interface CardProps {
+export interface CardProps {
     brand: string;
     price: number;
     category: string;
@@ -18,16 +18,18 @@ interface CardProps {
     hp: number;
     carburant: string;
     rate: number;
-  }
-  const Cards: React.FC<CardProps> = (props) => {
+}
+const Cards: React.FC<CardProps> = (props) => {
     const { brand, price, category, color, year, image, mileage, model, transmission, hp, carburant, rate } = props;
-  
+
     return (
         <div>
             <Card className='card-wrap' sx={{ maxWidth: 389 }}>
                 <CardContent>
                     <Typography className='img-container' gutterBottom variant="h5" component="div">
-                        <img id="prod-img" src={image} alt={brand} />
+                        <div>
+                            <img id="prod-img" src={image} alt={brand} />
+                        </div>
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         <div className='card-left-content-info'>
