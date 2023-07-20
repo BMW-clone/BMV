@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
+import { useRouter } from 'next/navigation';
 
 
 const pages = [
@@ -29,14 +30,12 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-
+const router= useRouter();
 
 const NavBar: FC = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    //const router = useRouter();
     const [searchKeyword, setSearchKeyword] = useState('');
-
     const handleSearch = async (keyword: string) => {
         setSearchKeyword(keyword);
 
@@ -48,11 +47,11 @@ const NavBar: FC = () => {
 
                 console.log(response.data);
 
-                //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+               router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 setSearchKeyword('');
             } catch (error) {
                 if (error) {
-                    //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+                    router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 }
                 console.error('Error during search:', error);
             }
@@ -121,8 +120,6 @@ const NavBar: FC = () => {
         tokenGrabber()
     }, [])
 
-    //!router
-    const router = useRouter()
     //!logout 
     const logout2 = (settings: string) => {
         if (settings === "Logout") {
