@@ -1,5 +1,4 @@
 const { db } = require("../database");
-const cloudinary = require("../database/cloudinary");
 const {ACCESS_TOKEN_SECRET}=require("./jwtConfig.js")
 const jwt=require("jsonwebtoken");
 const bcrypt = require("bcrypt");
