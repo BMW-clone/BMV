@@ -19,7 +19,7 @@ interface Props{
 export const Cars=(props:Props )=>{
 
   const [price,setPrice]=useState('')
-   const[row,setRow]=useState("")
+
   const handleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
     setPrice(event.target.value)}
 
@@ -59,6 +59,27 @@ export const Cars=(props:Props )=>{
           width: 150,
           editable: true,
           
+   
+      
+        },
+
+        {
+          field: '',
+          placeholder:" enter the new price",
+      
+          headerName: 'Updated Price',
+          width: 150,
+          editable: true,
+
+          renderCell:(cellValues:any)=>{
+            return (
+
+              <input
+               onChange={handleChange}
+                      />
+             
+            )
+          }
    
       
         },

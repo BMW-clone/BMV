@@ -51,7 +51,7 @@ const deleteNewCar=(id:number)=>{
   .catch((err:AxiosError)=>{console.log(err);})
 }
 
-const updateNewcar=(id:NewCarsData,price:NewCarsData)=>{
+const updateNewcar=(id:number,price:NewCarsData)=>{
    
   axios.put(`http://localhost:5000/newscars/update/${id}`,{
        price:price
@@ -75,7 +75,7 @@ const updateNewcar=(id:NewCarsData,price:NewCarsData)=>{
       <div className="top-market-statistics">Welcome To BMW Statistique </div>
       {/* <Cars  data ={newCar } /> */}
   {newCar.map((el:NewCarsData,i:number)=> <Cars  el={el} key={i} data ={newCar } delete={deleteNewCar} update={updateNewcar} />)} 
- 
+  
 
         </div>
       

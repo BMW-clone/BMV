@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,8 +16,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import Cookies from "universal-cookie";
+import jwtDecode from 'jwt-decode';
 import './NavBar.css'
+import { useRouter } from 'next/navigation';
 
 
 const pages = [
@@ -27,14 +30,12 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const router= useRouter();
 
-
-function NavBar(){
+const NavBar: FC = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    //const router = useRouter();
     const [searchKeyword, setSearchKeyword] = useState('');
-
     const handleSearch = async (keyword: string) => {
         setSearchKeyword(keyword);
 
@@ -46,11 +47,11 @@ function NavBar(){
 
                 console.log(response.data);
 
-                //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+               router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 setSearchKeyword('');
             } catch (error) {
                 if (error) {
-                    //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+                    router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 }
                 console.error('Error during search:', error);
             }
@@ -101,6 +102,48 @@ function NavBar(){
         },
     }));
 
+    //!token interface
+    interface Token {
+        username: string,
+        password: string,
+        role: string,
+        profilepic: string
+        exp: number,
+    }
+    //!token 
+    const [token, setToken] = useState<Token>()
+    const tokenGrabber = () => {
+        const cookies = new Cookies()
+        setToken(jwtDecode(cookies.get("jwt-token")))
+    }
+    useEffect(() => {
+        tokenGrabber()
+    }, [])
+
+    //!logout 
+    const logout2 = (settings: string) => {
+        if (settings === "Logout") {
+            const cookies = new Cookies()
+            cookies.remove("jwt-token")
+            router.push("/")
+        } else return
+
+    }
+    const navProfile = (setting: string) => {
+        if (setting === "Profile" && token?.role === "Client") {
+            router.push("/UserProfile")
+        } else if (setting === "Profile" && token?.role === "Seller") {
+            router.push("/SellerProfile")
+        } else return
+    }
+
+    const adminDash = (setting: string) => {
+        if (setting === "Dashboard") {
+            router.push("/Dashboard")
+        }
+        else return
+    }
+
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -142,68 +185,68 @@ function NavBar(){
                         />
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              Menu
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-            
-            </Menu>
-          </Box>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            Menu
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                        >
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              value={searchKeyword}
-              onChange={handleSearchInputChange}
-            
-            />
-          </Search>
+                        </Menu>
+                    </Box>
+
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="a"
+                        href=""
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        LOGO
+                    </Typography>
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                            value={searchKeyword}
+                            onChange={handleSearchInputChange}
+
+                        />
+                    </Search>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -214,7 +257,7 @@ function NavBar(){
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page.label}
+                                <b>{page.label}</b>
                             </Button>
                         ))}
                     </Box>
@@ -222,10 +265,10 @@ function NavBar(){
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src={token?.profilepic} />
                             </IconButton>
                         </Tooltip>
-                        <Menu
+                        {token?.role === "admin" && <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
@@ -241,17 +284,34 @@ function NavBar(){
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem
-                                    key={setting}
-                                    onClick={() => {
-                                        handleCloseUserMenu();
-                                    }}
-                                >
+                            {['Dashboard', 'Logout'].map((setting) => (
+                                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(); logout2(setting); adminDash(setting); }}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
-                        </Menu>
+                        </Menu>}
+                        {(token?.role === "Seller" || token?.role === "Client") && <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {['Profile', 'Logout'].map((setting) => (
+                                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(); logout2(setting); navProfile(setting); }}>
+                                    <Typography textAlign="center">{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>}
                     </Box>
                 </Toolbar>
             </Container>
