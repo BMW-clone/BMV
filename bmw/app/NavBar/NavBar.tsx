@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,8 +16,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import './NavBar.css'
+import { useRouter } from 'next/navigation';
 
 
 const pages = [
@@ -30,6 +30,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 function NavBar(){
+    const nextRouter = useRouter();
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     //const router = useRouter();
@@ -46,11 +47,11 @@ function NavBar(){
 
                 console.log(response.data);
 
-                //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+                nextRouter.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 setSearchKeyword('');
             } catch (error) {
                 if (error) {
-                    //router.push(`/newcars/search/${encodeURIComponent(keyword)}`);
+                    nextRouter.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 }
                 console.error('Error during search:', error);
             }

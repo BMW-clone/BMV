@@ -9,15 +9,29 @@ import FAQSection from '../faq/faq';
 import HeroSection from '../heroSection/HeroSection';
 import AboutUsHome from '../aboutUsHome/AboutUsHome';
 import Cards from '../card/Card';
-
+interface Car {
+  id: number;
+  brand: string;
+  price: number;
+  category: string;
+  color: string;
+  year: number;
+  image: string;
+  mileage: number;
+  model: string;
+  transmission: string;
+  hp: number;
+  carburant: string;
+  rate: number;
+}
 
 const Home = () => {
   useEffect(() => {
     getCars();
     getUsedCars();
   }, []);
-  const [newcars, setNewcars] = useState([]);
-  const [usedcars, setUsedcars] = useState([]);
+  const [newcars, setNewcars] = useState<Car[]>([]);
+  const [usedcars, setUsedcars] = useState<Car[]>([]);
 
   const getCars = () => {
     axios
