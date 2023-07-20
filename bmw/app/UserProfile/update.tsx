@@ -124,9 +124,9 @@ const UserUpdate: React.FC<UserUpdateProps> = () => {
         }}
         inputProps={ariaLabel}
       />
-
+{/* 
       <Input type="file" onChange={(e) => handleImageUpload(e.target.files[0], "profilepic")} />
-      <Input type="file" onChange={(e) => handleImageUpload(e.target.files[0], "coverpic")} />
+      <Input type="file" onChange={(e) => handleImageUpload(e.target.files[0], "coverpic")} /> */}
 
       <button type="button" onClick={handleSubmit}>Save Changes</button>
     </Box>

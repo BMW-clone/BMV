@@ -1,4 +1,4 @@
-const cloudinary = require("../database/cloudinary");
+// const cloudinary = require("../database/cloudinary");
 const { db, sequelize } = require("../database");
 
 module.exports = {

@@ -1,4 +1,4 @@
-const cloudinary = require("../database/cloudinary");
+
 const {sequelize,db}= require("../database");
 const { Op } = require('sequelize');
 
@@ -97,24 +97,8 @@ updateCar: async(req,res)=>{
         try{ 
         const updated= await db.NewCars.findByPk(id);
 
-        if (!updated) {
-          return res.status(404).json({ error: " New car does not exist" });
-        }
-            // if(image!==updated.image){
-            //  const ima= await cloudinary.uploader
-            //  .upload(image,{
-            //     imsource:"image"
-            //  });
-            //  image=ima.secure_url;
-            // }
-     
             updated.price=price;
-      
-      
-            
-          
-
-
+            console.log(updated)
             await updated.save();
             res.status(201).json(updated);
         
@@ -128,6 +112,23 @@ updateCar: async(req,res)=>{
 
  
    },
+
+
+
+
+
+
+   deleteCar:async(req,res)=>{
+    const {id}=req.params;
+    try{
+     await db.NewCars.destroy({ where: {id}});
+     res.json({ message: "New Car deleted successfully" });
+    }
+      catch(error){
+       console.log(error)
+       res.status(500).json({error:"error"})
+   }
+ },
 
    // Filter cars by category
 filterCarsByCategory: async (req, res) => {
