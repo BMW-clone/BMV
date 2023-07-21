@@ -16,7 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
@@ -30,7 +30,7 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const router= useRouter();
+
 
 const NavBar: FC = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -38,11 +38,11 @@ const NavBar: FC = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const handleSearch = async (keyword: string) => {
         setSearchKeyword(keyword);
-
+        const router= useRouter();
         if (keyword.trim().length >= 2) {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/newcars/search?keyword=${encodeURIComponent(keyword)}`
+                    `http://localhost:5000/newcars/search?keyword=${encodeURIComponent(keyword)}`
                 );
 
                 console.log(response.data);

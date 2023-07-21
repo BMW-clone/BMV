@@ -1,4 +1,4 @@
-const { sequelize  ,DataTypes } = require('sequelize');
+const { sequelize,DataTypes } = require('sequelize');
 module.exports=(sequelize,DataTypes)=>{
 const  NewCars = sequelize.define('NewCars', {
  
@@ -73,6 +73,12 @@ carburant:{
 {
 
 });
+NewCars.associate = (models) => {
+  NewCars.hasMany(models.Rating, {
+    as: 'ratings',
+    foreignKey: 'newCarId',
+  });
+};
 return NewCars
  
 }
