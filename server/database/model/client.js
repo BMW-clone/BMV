@@ -47,8 +47,10 @@ module.exports=(sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         allowNull:false,
 
-    }
-    )
+    
+    
+}},
+);
 
     Client.associate = (models) => {
         Client.hasMany(models.Rating, {
