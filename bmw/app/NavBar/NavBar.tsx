@@ -16,23 +16,27 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
 import { useRouter } from 'next/navigation';
 
 
-const pages = [
-    { label: 'Home', link: '/Home' },
-    { label: 'Used Cars', link: '/UsedCars' },
-    { label: 'New Cars', link: '/NewCars' },
-];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const router= useRouter();
 
 const NavBar: FC = () => {
+
+
+    const router= useRouter();
+    const pages = [
+        { label: 'Home', link: '/Home' },
+        { label: 'Used Cars', link: '/UsedCars' },
+        { label: 'New Cars', link: '/NewCars' },
+    ];
+    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const [searchKeyword, setSearchKeyword] = useState('');

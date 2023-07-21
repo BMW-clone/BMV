@@ -132,5 +132,25 @@ try{
    res.status(500).json({error:"error"})
 }
 },
+
+updateSellerRole: async (req, res) => {
+
+  const {username}=req.params
+   const {role} = req.body
+   try {
+     const seller= await db.Seller.findOne({where: {username}})
+     if (!seller) {
+       return res.status(404).json("user not found")
+     }
+     await seller.update (req.body);
+     
+   
+
+     res.status(200).json(seller)
+   } catch (err) {
+     console.log("err", err)
+     res.status(500).json(err)
+   }
+ },
 }
 

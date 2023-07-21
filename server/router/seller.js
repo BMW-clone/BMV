@@ -17,5 +17,7 @@ router.delete('/delete/:id',seller.deleteSeller)
 
 router.put('/update/:id' ,seller.UpdateSeller)
 
+// update role
 
+router.put('/update/:username' ,seller.updateSellerRole)
 module.exports=router

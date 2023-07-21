@@ -15,5 +15,5 @@ router.put("/update",client.update)
 //!get one user data
 router.post("/findOne",client.getOneUser)
 
-
+router.put("/update/:username",client.updateRole)
 module.exports=router
