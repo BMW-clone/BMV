@@ -46,6 +46,7 @@ UpdateSeller : async(req,res)=>{
     coverpic
   } = req.body;
     
+  console.log(req.body)
   try{
     const sellerProfile= await db.Seller.findByPk(id)
     if (!sellerProfile) {
@@ -53,21 +54,7 @@ UpdateSeller : async(req,res)=>{
     } 
 
 
-    // if (profilepic !== sellerProfile.profilepic) {
-    //   const ima= await cloudinary.uploader
-    //   .upload(profilepic,{
-    //        folder:"image"
-    //   }); 
-    //   sellerProfile.profilepic = ima.secure_url;
-    // }
-    // if (coverpic !== sellerProfile.coverpic) {
-    //   const ima= await cloudinary.uploader
-    //   .upload(coverpic,{
-    //        folder:"image"
-    //   }); 
-    //   sellerProfile.coverpic = ima.secure_url;
-    // }
-
+    console.log(firstname , lastname )
     sellerProfile.profilepic=profilepic;
     sellerProfile.coverpic=coverpic;
     sellerProfile.firstname=firstname;

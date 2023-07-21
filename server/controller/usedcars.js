@@ -29,6 +29,7 @@ const CarsInfo = {
 
   deleteCar: async (req, res) => {
     const { id } = req.params;
+    console.log("id car",id)
     try {
       await db.usedcars.destroy({ where: { id } });
       res.json({ message: "car deleted successfully" });
