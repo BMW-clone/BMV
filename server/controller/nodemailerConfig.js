@@ -7,7 +7,7 @@ const transport=nodemailer.createTransport({
     service:"Gmail",
     auth:{
         user:"bmvteam.tn@gmail.com",
-        pass:"cecianwxehagucyv"
+        pass:"lnnnbzcoowvrsoim"
     }
 })
 module.exports.sendConfirmation=(email,activationCode)=>{

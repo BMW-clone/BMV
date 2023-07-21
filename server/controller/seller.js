@@ -3,27 +3,32 @@ const {sequelize,db}= require("../database");
 const {ACCESS_TOKEN_SECRET}=require("./jwtConfig")
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
+const keygen = require('keygen');
+const { sendConfirmation } = require("./nodemailerConfig");
 
 module.exports={
-//! find specific seller on login 
 //! find specific admin on login 
 getOne: async (req,res)=>{
   const {username,password}=req.body
   try{
       const user= await db.Seller.findOne({where:{username:username}})
       if(!user){
-          res.status(404).json("user not found")
-         
+          res.status(404).json("user not found") 
       }else{
          bcrypt.compare(password,user.dataValues.password,(err,result)=>{
           if(result){
+            if(!user.dataValues.isActive){
+              res.status(500).send("Please check your email inbox to verify your account")
+            }else{
               const token = jwt.sign({
-                  username:user.dataValues.username,
-                  password:user.dataValues.password,
-                  role:user.dataValues.role,
-                  profilepic:user.dataValues.profilepic
-              },ACCESS_TOKEN_SECRET)
-              res.status(201).send(token)
+                username:user.dataValues.username,
+                password:user.dataValues.password,
+                role:user.dataValues.role,
+                profilepic:user.dataValues.profilepic
+            },ACCESS_TOKEN_SECRET)
+            res.status(201).send(token)
+            }
+             
           }else{
               res.send("Wrong password")                
           }
@@ -86,17 +91,29 @@ UpdateSeller : async(req,res)=>{
 
 
 //!signUp
-Add: async (req,res)=>{
-  const {firstname, lastname,username,email,password,profilepic,role,phoneNumber,coverpic}=req.body
-  const hashedpassword = await bcrypt.hash(password,10)
-  console.log("hashedpassword",hashedpassword);
-  try{
-      const user=await db.Seller.create({firstname, lastname,username,email,password:hashedpassword,profilepic,role,phoneNumber,coverpic})
-      res.status(201).json(user)
-  }
-  catch(err){
-      console.log(err);
-      res.status(500).send(err)
+Add: async (req, res) => {
+  const { firstname, lastname, username, email, password,isActive, profilepic, role, phoneNumber, coverpic } = req.body
+  const hashedPassword = await bcrypt.hash(password, 10)
+  const acCode= keygen.url(keygen.large)
+  try {
+    const user = await db.Seller.create({
+      firstname,
+      lastname,
+      username,
+      email,
+      password: hashedPassword,
+      isActive,
+      activationCode:acCode,
+      profilepic,
+      role,
+      phoneNumber,
+      coverpic,
+    })
+    res.status(201).json(user)
+    sendConfirmation(email,acCode)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
   }
 },
 //!get one user data
@@ -132,5 +149,23 @@ try{
    res.status(500).json({error:"error"})
 }
 },
+verifyUser: async (req,res)=>{
+  try{ 
+  const user= await db.Seller.findOne({where:{activationCode:req.params.activationCode}})
+  if(!user){
+    res.send("Activation code is wrong")
+  }else{
+    await user.update({
+      isActive:true
+      
+    })
+    res.send("Account activated successfully")
+  }
+}
+catch(err){
+  console.log("err", err)
+  res.status(500).json(err)
+}
+}
 }
 

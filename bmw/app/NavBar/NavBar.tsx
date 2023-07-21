@@ -12,11 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-// import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
@@ -30,9 +29,10 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const router= useRouter();
+
 
 const NavBar: FC = () => {
+    const router = useRouter();
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -47,7 +47,7 @@ const NavBar: FC = () => {
 
                 console.log(response.data);
 
-               router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
+                router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 setSearchKeyword('');
             } catch (error) {
                 if (error) {
@@ -213,39 +213,6 @@ const NavBar: FC = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-
-<<<<<<< HEAD
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              {/* <SearchIcon /> */}
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              value={searchKeyword}
-              onChange={handleSearchInputChange}
-            
-            />
-          </Search>
-=======
                         </Menu>
                     </Box>
 
@@ -279,7 +246,7 @@ const NavBar: FC = () => {
 
                         />
                     </Search>
->>>>>>> e35f7da82eab7753bbfb8b37aa2a5293fec41fc8
+
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
