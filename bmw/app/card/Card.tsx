@@ -18,9 +18,10 @@ export interface CardProps {
     hp: number;
     carburant: string;
     rate: number;
+    onAddToCart:()=>void;
 }
 const Cards: React.FC<CardProps> = (props) => {
-    const { brand, price, category, color, year, image, mileage, model, transmission, hp, carburant, rate } = props;
+    const { brand, price, category, color, year, image, mileage, model, transmission, hp, carburant, rate,onAddToCart } = props;
 
     return (
         <div>
@@ -43,8 +44,9 @@ const Cards: React.FC<CardProps> = (props) => {
                     </Typography>
                 </CardContent>
                 <div className='btn-container'>
-
-                    <button className="btn-2">Order Now</button>
+                <button onClick={onAddToCart}  >
+                    Add To Cart!
+                </button>
                 </div>
             </Card>
         </div>

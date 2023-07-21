@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Card from '../card/Card';
 import axios from 'axios';
+import Cart from '../cart/cart';
 
 import '../newcars/newcars.css';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { error } from 'console';
 
 
 interface Car {
@@ -28,8 +30,19 @@ const Newcars = () => {
     const [categoryFilter, setCategoryFilter] = useState('');
     const [priceFilter, setPriceFilter] = useState('');
     const [transmition, setTransmission] = useState('');
+    const [cartItems,setCartItems]=useState<Car[]>([])
 
-
+    const handleAddToCart = (car: Car) => {
+        const isCarInCart = cartItems.some((item) => item.id === car.id);
+        if (!isCarInCart) {
+          setCartItems((prevCartItems) => [...prevCartItems, car]);
+        } else {
+          console.log(`Car with ID ${car.id} is already in the cart.`);
+        }
+      }
+     const handleRemoveFromCart = (carId: number) => {
+    setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== carId));
+  }
 
     const getCars = () => {
         axios
@@ -180,9 +193,13 @@ const Newcars = () => {
                             hp={car.hp}
                             carburant={car.carburant}
                             rate={car.rate}
+                            onAddToCart={()=>handleAddToCart(car)}
                         />
                     ))}
                 </div>
+            </Grid>
+            <Grid item xs={12} md={2}>
+                <Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />
             </Grid>
         </Grid>
     );
