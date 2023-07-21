@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Card from '../card/Card';
 import axios from 'axios';
 
-import '../newcars/newcars.css';
+import '../newcars/Styles.css';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
