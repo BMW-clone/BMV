@@ -1,5 +1,5 @@
 const {sequelize,db}= require("../database");
-const cloudinary = require("../database/cloudinary");
+
 const {ACCESS_TOKEN_SECRET}=require("./jwtConfig")
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")

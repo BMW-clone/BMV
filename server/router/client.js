@@ -14,6 +14,8 @@ router.delete('/delete/:id',client.deleteClient)
 router.put("/update",client.update)
 //!get one user data
 router.post("/findOne",client.getOneUser)
+//! verify emial
+router.post("/verify/:activationCode",client.verifyUser)
 
 
 module.exports=router
