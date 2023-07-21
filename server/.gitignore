@@ -1,5 +1,6 @@
 controller/jwtConfig.js
 database/cloudinary.js
+controller/nodemailerConfig.js
 # Logs
 logs
 *.log

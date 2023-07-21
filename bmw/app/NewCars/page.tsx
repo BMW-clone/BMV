@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 'use client'
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
@@ -191,4 +189,4 @@ const Newcars = () => {
 };
 
 export default Newcars;
->>>>>>> 216ba5f2f258c6a8b4acff8559758b2828629045
+

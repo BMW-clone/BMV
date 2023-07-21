@@ -7,15 +7,14 @@ router.post("/login",seller.getOne)
 router.post("/signup",seller.Add)
 //! get one user data
 router.post("/findOne",seller.getOneUser)
-
-//get all seller
+//!get all seller
 router.get('/',seller.getAllSeller)
-
-//delete seller
+//!delete seller
 router.delete('/delete/:id',seller.deleteSeller)
-//update seller
-
+//!update seller
 router.put('/update/:id' ,seller.UpdateSeller)
+//! verify emial
+router.post("/verify/:activationCode",seller.verifyUser)    
 
 // update role
 

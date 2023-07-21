@@ -1,4 +1,4 @@
-   
+
  enum  Disel{
     ESSENCE="ESSENCE",
     DIESEL="DIESEL"
@@ -25,6 +25,10 @@ enum  Transmission{
     hp:number,
     carburant:Disel,
     rate:number 
+
+
+
+
 
 
 }

@@ -32,12 +32,7 @@ const Login: FC = () => {
   const [user, setUser] = useState<object | null>(null)
   //!entered login info
   const [username, setUsername] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-  //!logout function
-  const logout = () => {
-    setUser(null)
-    cookies.remove("jwt-token")
-  }
+  const [password, setPassword] = useState<string>("") 
   //!login function
   const login = () => {
     axios.post("http://localhost:5000/client/login", { username, password })
@@ -134,6 +129,7 @@ const Login: FC = () => {
         </div>
       </div>
     </div>
-  )}
+  )
+}
 
 export default Login

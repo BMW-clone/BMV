@@ -16,26 +16,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
 import { useRouter } from 'next/navigation';
 
-
-
-
-const NavBar: FC = () => {
-
-
-    const router= useRouter();
     const pages = [
         { label: 'Home', link: '/Home' },
         { label: 'Used Cars', link: '/UsedCars' },
         { label: 'New Cars', link: '/NewCars' },
     ];
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const NavBar: FC = () => {
+    const router = useRouter();
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -51,7 +43,7 @@ const NavBar: FC = () => {
 
                 console.log(response.data);
 
-               router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
+                router.push(`/NewCars/search?keyword=${encodeURIComponent(keyword)}`);
                 setSearchKeyword('');
             } catch (error) {
                 if (error) {
@@ -217,7 +209,6 @@ const NavBar: FC = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-
                         </Menu>
                     </Box>
 
@@ -251,6 +242,7 @@ const NavBar: FC = () => {
 
                         />
                     </Search>
+
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
