@@ -1,3 +1,4 @@
+
 const {DataTypes,sequelize} = require("sequelize");
 module.exports=(sequelize,DataTypes)=>{
     const Client = sequelize.define("Client",{
@@ -45,9 +46,16 @@ module.exports=(sequelize,DataTypes)=>{
     coverpic:{
         type:DataTypes.STRING,
         allowNull:false,
+
     }
-}
     )
+
+    Client.associate = (models) => {
+        Client.hasMany(models.Rating, {
+            as: 'ratings',
+            foreignKey: 'clientId',
+        });
+    };
     return Client
-    
+
 }

@@ -1,3 +1,4 @@
+
 'use client'
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
@@ -33,7 +34,7 @@ const Newcars = () => {
 
     const getCars = () => {
         axios
-            .get('http://localhost:3000/newcars')
+            .get('http://localhost:5000/newcars')
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -78,7 +79,7 @@ const Newcars = () => {
 
     const applyCategoryFilter = (filterValue: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterByCategory', { category: filterValue })
+            .post('http://localhost:5000/newcars/filterByCategory', { category: filterValue })
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -89,7 +90,7 @@ const Newcars = () => {
 
     const applyPriceFilter = (price: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterCarsByPrice', { price })
+            .post('http://localhost:5000/newcars/filterCarsByPrice', { price })
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -100,7 +101,7 @@ const Newcars = () => {
 
     const applyTransmitionFilter = (searchValue: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterCarsByTransmition', { transmition: searchValue })
+            .post('http://localhost:5000/newcars/filterCarsByTransmition', { transmition: searchValue })
             .then((res) => {
                 setNewcars(res.data);
             })
