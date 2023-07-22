@@ -10,6 +10,7 @@ const UsedCarsRoute = require("./router/usedcars")
 const NewCarsRoute=require("./router/newcars")
 const Admin = require("./router/admin")
 const Seller = require("./router/seller")
+const Flouci=require("./router/flouciPayment")
 //!middlewears
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -21,6 +22,7 @@ app.use("/client",Client)
 app.use("/newcars",NewCarsRoute)
 app.use("/admin",Admin)
 app.use("/seller",Seller)
+app.use("/flouci",Flouci)
 
 
 app.listen(PORT, function () {

@@ -1,6 +1,7 @@
 controller/jwtConfig.js
 database/cloudinary.js
 controller/nodemailerConfig.js
+controller/flouciPaymentConfig.js
 # Logs
 logs
 *.log

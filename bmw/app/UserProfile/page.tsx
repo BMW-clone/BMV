@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import jwtDecoder from "jwt-decode";
 import Cookies from "universal-cookie";
 import axios from "axios";

@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 
 //! password bmvteam123**
-//! app password cecianwxehagucyv
-
+//! app password lnnnbzcoowvrsoim
+//! flouci password G1bA0j7cXTb
 const transport=nodemailer.createTransport({
     service:"Gmail",
     auth:{
