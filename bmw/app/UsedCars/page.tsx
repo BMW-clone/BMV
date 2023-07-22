@@ -29,7 +29,7 @@ const UsedCarsList = () => {
       setIsDropdownOpen((prevState) => !prevState);
   };
   const getCars = () => {
-    axios.get('http://localhost:3000/usedcars/getall')
+    axios.get('http://localhost:5000/usedcars/getall')
         .then((res) => {
             setUsedCars(res.data);
         })
@@ -75,7 +75,7 @@ const UsedCarsList = () => {
   };
 
   const applyCategoryFilter = (filterValue: string) => {
-      axios.post("http://localhost:3000/usedcars/filterCarsByCategory", { category: filterValue })
+      axios.post("http://localhost:5000/usedcars/filterCarsByCategory", { category: filterValue })
           .then((res) => {
               setUsedCars(res.data);
           })
@@ -84,7 +84,7 @@ const UsedCarsList = () => {
           });
   };
   const applyPriceFilter = (price: string) => {
-      axios.post("http://localhost:3000/usedcars/filterCarsByPrice", { price })
+      axios.post("http://localhost:5000/usedcars/filterCarsByPrice", { price })
           .then((res) => {
               setUsedCars(res.data);
           })
@@ -93,7 +93,7 @@ const UsedCarsList = () => {
           });
   };
   const applyTransmitionFilter = (searchValue: string) => {
-      axios.post("http://localhost:3000/usedcars/filterCarsByTransmition", { transmition:searchValue })
+      axios.post("http://localhost:5000/usedcars/filterCarsByTransmition", { transmition:searchValue })
           .then((res) => {
               setUsedCars(res.data);
           })
