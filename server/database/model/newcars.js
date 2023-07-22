@@ -61,11 +61,6 @@ carburant:{
 
   },
 
- rate :{
-    type:DataTypes.INTEGER,
-    allowNull: true
-
- }
   
 }, 
 
@@ -73,12 +68,7 @@ carburant:{
 {
 
 });
-NewCars.associate = (models) => {
-  NewCars.hasMany(models.Rating, {
-    as: 'ratings',
-    foreignKey: 'newCarId',
-  });
-};
+
 return NewCars
  
 }
