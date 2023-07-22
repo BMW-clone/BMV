@@ -11,6 +11,8 @@ const NewCarsRoute=require("./router/newcars")
 const Admin = require("./router/admin")
 const Seller = require("./router/seller")
 const Flouci=require("./router/flouciPayment")
+const Rating = require("./router/rating")
+
 //!middlewears
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -23,6 +25,8 @@ app.use("/newcars",NewCarsRoute)
 app.use("/admin",Admin)
 app.use("/seller",Seller)
 app.use("/flouci",Flouci)
+app.use("/rating",Rating)
+
 
 
 app.listen(PORT, function () {
