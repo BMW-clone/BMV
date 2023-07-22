@@ -52,12 +52,7 @@ module.exports=(sequelize,DataTypes)=>{
 }},
 );
 
-    Client.associate = (models) => {
-        Client.hasMany(models.Rating, {
-            as: 'ratings',
-            foreignKey: 'clientId',
-        });
-    };
+ 
     return Client
 
 }

@@ -37,7 +37,7 @@ const NavBar: FC = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const handleSearch = async (keyword: string) => {
         setSearchKeyword(keyword);
-        const router= useRouter();
+        //const router= useRouter();
         if (keyword.trim().length >= 2) {
             try {
                 const response = await axios.get(
