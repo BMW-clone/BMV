@@ -23,6 +23,29 @@ db.NewCars.belongsTo(db.Admin,{
   onDelete: 'CASCADE',
   onUpdate: 'RESTRICT'
 })
+//!Rating
+db.Rating.belongsTo(db.NewCars,{
+  as: 'newCar',
+  foreignKey: 'newCarId',
+});
+db.Rating.belongsTo(db.usedcars,{
+  as: 'usedCar',
+  foreignKey: 'usedCarId',
+});
+db.NewCars.hasMany(db.Rating, {
+  as: 'ratings',
+  foreignKey: 'newCarId',
+});
+db.usedcars.hasMany(db.Rating, {
+  as: 'ratings',
+  foreignKey: 'usedCarId',
+});
+
+  db.Client.hasMany(db.Rating, {
+      as: 'ratings',
+      foreignKey: 'clientId',
+  });
+
 sequelize.query("CREATE DATABASE IF NOT EXISTS BMW;") //! Create the database if it doesn't exist
   .then(() => {
   

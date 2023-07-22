@@ -66,12 +66,7 @@ module.exports =(sequelize , DataTypes) =>{
     
     
     })    
-    UsedCars.associate = (models) => {
-      UsedCars.hasMany(models.Rating, {
-        as: 'ratings',
-        foreignKey: 'usedCarId',
-      });
-    };
+   
 
     return  UsedCars
   }

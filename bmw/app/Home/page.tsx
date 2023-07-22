@@ -7,7 +7,7 @@ import { Grid } from '@mui/material';
 import FAQSection from '../faq/faq';
 import HeroSection from '../heroSection/HeroSection';
 import AboutUsHome from '../aboutUsHome/AboutUsHome';
-import Cards from '../card/Card';
+import Cards, { CardProps } from '../card/Card';
 interface Car {
   id: number;
   brand: string;
@@ -32,23 +32,9 @@ const Home = () => {
 
   const [newcars, setNewcars] = useState<Car[]>([]);
   const [usedcars, setUsedcars] = useState<Car[]>([]);
+  const [currentRating, setCurrentRating] = useState<number | null>(null); 
 
-  //!car interface
-  interface Car {
-    id: number,
-    brand: string,
-    price: number,
-    category: string,
-    color: string,
-    year: number,
-    image: string,
-    mileage: number,
-    model: string,
-    transmission: string,
-    hp: number,
-    carburant: string,
-    rate: number
-  }
+
 
   const getCars = () => {
     axios
@@ -71,6 +57,21 @@ const Home = () => {
         console.log(err);
       });
   };
+  const handleRatingChange = async (newRating: number, newCarId: number) => {
+    setCurrentRating(newRating); 
+
+    try {
+    
+        await axios.post(`http://localhost:5000/rating/newcars/newCarId/rate`, {
+            newCarId,
+            clientId: 2,
+            rating: newRating,
+        });
+        console.log('Car rated successfully!');
+    } catch (error) {
+        console.error('Error rating car:', error);
+    }
+};
 
   return (
     <div className='home-wrap'>
@@ -93,7 +94,7 @@ const Home = () => {
         <h1>All Collection</h1>
         <Grid item xs={12} md={12}>
           <div id='newcars' className='card-columns-home'>
-            {newcars.slice(0, 3).map((car: Car) => (
+            {newcars.slice(0, 3).map((car) => (
               <Cards
                 key={car.id}
                 brand={car.brand}
@@ -107,13 +108,14 @@ const Home = () => {
                 transmission={car.transmission}
                 hp={car.hp}
                 carburant={car.carburant}
-                rate={car.rate}
+                rate={currentRating || car.rate}
+                onRatingChange={(newRating) => handleRatingChange(newRating, car.id)}
               />
             ))}
           </div>
           <Grid>
             <div id='usedcars' className='card-columns-home'>
-              {usedcars.slice(0, 3).map((car: Car) => (
+              {usedcars.slice(0, 3).map((car) => (
                 <Cards
                   key={car.id}
                   brand={car.brand}
