@@ -1,6 +1,5 @@
-import {FC,useState ,useEffect} from 'react';
 
-
+import {FC,useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,24 +13,23 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
-import './Cars.css'
 
+import  './Seller.css'
 
 
 interface Props{
-  data :NewCarsData[]
-  el:NewCarsData
-  delete:NewCarsData
-  update:NewCarsData
+  data :SellerData[],
+  e:SellerData,
+  delete:SellerData,
+  update:SellerData
+
 }
 
-
-
-export const Cars=(props:Props )=>{
-
-  const [price,setPrice]=useState('')
+export const Seller=(props:Props )=>{
 
   const [open, setOpen] = useState(false);
+  const [role,setRole]=useState("")
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,69 +40,68 @@ export const Cars=(props:Props )=>{
   };
 
 
+
   console.log('p',props);
   
-    const columns :any= [
-        { field: 'id', headerName: 'ID', width: 90 },
-        {
-          field: 'brand',
-          headerName: 'Brand',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'model',
-          headerName: 'Model',
-          width: 150,
-          editable: true,
-        },
-      
-      
+    const columns :any=     [
         
-      
-        {
-          field: 'color',
-          headerName: 'Color',
-          width: 150,
-          editable: true,
-        },
-      
-        {
-          field: 'price',
-      
-           
-          headerName: 'Price',
-          width: 150,
-          editable: true,
-          
-   
-      
-        },
+        { field: 'id', headerName: 'ID', width: 90 },
+    {
+      field: ' firstname',
+      headerName: 'FirstName',
+      width: 150,
+      editable: true,
+    },
 
+
+    {
+        field: ' lastname',
+        headerName: 'LastName',
+        width: 150,
+        editable: true,
+      },
+    {
+      field: 'username',
+      headerName: 'UserName',
+      width: 150,
+      editable: true,
+    },
+  
+  
     
-      
-      
-        {
-          renderCell: (cellValues :any) => {
-            
-            return (
-              <div>
+  
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 150,
+      editable: true,
+    },
+  
 
-         <IconButton type="submit" variant="outlined"  onClick={handleClickOpen} >
+  
+  
+  
+   
+    
+    {
+      renderCell:(cellValues:any) => {
+        return (
+          <div>
+      <IconButton type="submit" variant="outlined"  onClick={handleClickOpen} >
       < EditIcon/>
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle> New Price</DialogTitle>
+        <DialogTitle> Role</DialogTitle>
         <DialogContent>
           <DialogContentText>
-   
+            Select a role
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Price"
-            onChange={(e)=>{setPrice(e.target.value)}}
+            label="Role"
+            onChange={(e)=>{setRole(e.target.value)}}
            
             fullWidth
             variant="standard"
@@ -117,46 +114,38 @@ export const Cars=(props:Props )=>{
           </IconButton>
 
           <IconButton   >
-           <DoneIcon       onClick={()=> {props.update(props.el.id,price);console.log("id",props.el.id) }}/>
+           <DoneIcon       onClick={()=> {props.update(props.e.username,role); }}/>
           </IconButton>
         </DialogActions>
       </Dialog>
-
-
-
-
-
-
-              </div>
-            
-            
-            ); 
-          }
-          
-        },
+      </div>)
+      }
       
-        {
-          field: "delete",
-          type: 'actions',
-          renderCell: (cellValues:any ) => {
-            return (
-          
-              <IconButton aria-label="delete" type="submit"   onClick={()=> {props.delete(props.el.id); console.log("id",props.el.id)} }>
-                <DeleteIcon    />
-              </IconButton>
-           
-           
-            ); 
-          }
-          }
+    },
+  
+    {
+      field: "",
+      type: 'actions',
+      renderCell: (cellValues:any) => {
+        return (
+      
+          <IconButton aria-label="delete"   type="submit"   onClick={()=> {props.delete(props.e.id); console.log("id",props.e.id)} }  >
+            <DeleteIcon />
+          </IconButton>
        
-        
+       
+        ); 
+      }
+      }
+   
+  
+  ]
         
          
           
        
       
-      ]
+      
       
       
       
@@ -167,7 +156,7 @@ export const Cars=(props:Props )=>{
   return (
     
     <div>
-      <div className='statistics '>
+      <div className='seller'>
     <Box sx={{ height: 400, width: '100%' }}>
    
       <DataGrid 
