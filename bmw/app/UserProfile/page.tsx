@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import jwtDecoder from "jwt-decode";
 import Cookies from "universal-cookie";
 import axios from "axios";
@@ -30,10 +30,10 @@ const Page = (props: Props) => {
       role: string
       username: string
     }
-
+ 
     if (token.role === "Client") {
       axios
-        .post<UserData>("http://localhost:3000/client/findOne", {
+        .post<UserData>("http://localhost:5000/client/findOne", {
           username: token.username,
         })
         .then((res) => {

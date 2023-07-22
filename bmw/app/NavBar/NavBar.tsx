@@ -16,28 +16,24 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
-
-//import { useRouter } from 'next/navigation';
-
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
 import { useRouter } from 'next/navigation';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-    const pages = [
-        { label: 'Home', link: '/Home' },
-        { label: 'Used Cars', link: '/UsedCars' },
-        { label: 'New Cars', link: '/NewCars' },
-    ];
+const pages = [
+    { label: 'Home', link: '/Home' },
+    { label: 'Used Cars', link: '/UsedCars' },
+    { label: 'New Cars', link: '/NewCars' },
+];
 const NavBar: FC = () => {
     const router = useRouter();
-
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const [searchKeyword, setSearchKeyword] = useState('');
     const handleSearch = async (keyword: string) => {
         setSearchKeyword(keyword);
-        //const router= useRouter();
         if (keyword.trim().length >= 2) {
             try {
                 const response = await axios.get(
@@ -135,7 +131,12 @@ const NavBar: FC = () => {
             router.push("/SellerProfile")
         } else return
     }
-
+    const navCart = (setting: string) => {
+        if (setting === "Profile" || setting === "Profile" || setting === "Logout") {
+            return
+        }
+        else router.push("/cart")
+    }
     const adminDash = (setting: string) => {
         if (setting === "Dashboard") {
             router.push("/Dashboard")
@@ -305,9 +306,9 @@ const NavBar: FC = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {['Profile', 'Logout'].map((setting) => (
-                                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(); logout2(setting); navProfile(setting); }}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                            {[<ShoppingCartOutlinedIcon />, 'Profile', 'Logout'].map((setting) => (
+                                <MenuItem onClick={() => { handleCloseUserMenu(); logout2(setting); navProfile(setting); navCart(setting) }}>
+                                    <Typography textAlign="center"><b>{setting}</b></Typography>
                                 </MenuItem>
                             ))}
                         </Menu>}
