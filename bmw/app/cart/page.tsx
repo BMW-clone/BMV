@@ -24,7 +24,7 @@ const cart: React.FC<CartProps>=({cartItems,onRemoveFromCart})=>{
     return (
         <div>
           <h2>Shopping List!</h2>
-          {cartItems.map((car)=>
+          {cartItems?.map((car)=>
           <div key={car.id} className='cart-item'>
             <img src={car.image} alt={car.brand}/>
             <div>
