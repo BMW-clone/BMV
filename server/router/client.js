@@ -17,5 +17,5 @@ router.post("/findOne",client.getOneUser)
 //! verify emial
 router.post("/verify/:activationCode",client.verifyUser)
 
-
+router.put("/update/:username",client.updateRole)
 module.exports=router

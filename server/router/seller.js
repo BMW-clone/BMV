@@ -16,5 +16,7 @@ router.put('/update/:id' ,seller.UpdateSeller)
 //! verify emial
 router.post("/verify/:activationCode",seller.verifyUser)    
 
+// update role
 
+router.put('/update/:username' ,seller.updateSellerRole)
 module.exports=router

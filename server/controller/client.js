@@ -123,6 +123,38 @@ deleteClient: async (req, res) => {
         res.status(500).json(err)
       }
     },
+   
+
+    //update role client 
+
+
+  updateRole: async (req, res) => {
+
+     const {username}=req.params
+      const {role} = req.body
+      try {
+        const client = await db.Client.findOne({where: {username}})
+        if (!client) {
+          return res.status(404).json("user not found")
+        }
+        await client.update (req.body);
+        
+      
+  
+        res.status(200).json(client)
+      } catch (err) {
+        console.log("err", err)
+        res.status(500).json(err)
+      }
+    },
+
+
+
+
+
+
+
+
     verifyUser: async (req,res)=>{
       try{ 
       const user= await db.Client.findOne({where:{activationCode:req.params.activationCode}})
@@ -141,5 +173,7 @@ deleteClient: async (req, res) => {
       res.status(500).json(err)
     }
   }
+
   };
+
 
