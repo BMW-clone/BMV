@@ -1,4 +1,4 @@
-"use strict";
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwtDecoder from "jwt-decode";
@@ -50,7 +50,7 @@ const Page = (props: Props) => {
     router.push("/UserProfile")
   }
 
-  return data ? ( 
+  return data ? (
     <div className="banners">
       <img className="coverImage" alt="" src={data?.coverpic} />
       <div className="editProfile">
@@ -64,7 +64,7 @@ const Page = (props: Props) => {
         <div className="surName">@{data?.username}</div>
       </div>
     </div>
-  ) : null 
+  ) : null
 }
 
 export default Page

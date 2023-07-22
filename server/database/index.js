@@ -1,5 +1,5 @@
 const {DataTypes,Sequelize} = require("sequelize");
-const sequelize = new Sequelize('bmw', 'root', 'root', {
+const sequelize = new Sequelize('bmw', 'root', '93669784', {
   host: 'localhost',
   dialect: 'mysql',
   logging:false
@@ -12,6 +12,7 @@ db.Seller=require("../database/model/seller")(sequelize,DataTypes)
 db.usedcars=require("../database/model/usedcars")(sequelize,DataTypes);
 db.Admin = require("../database/model/admin")(sequelize, DataTypes);
 db.NewCars = require("../database/model/newcars")(sequelize, DataTypes);
+db.Rating = require("../database/model/rating")(sequelize, DataTypes);
 //!relations
 //!seller can has many used cars(seller to used cars)
  db.Seller.hasMany(db.usedcars);
