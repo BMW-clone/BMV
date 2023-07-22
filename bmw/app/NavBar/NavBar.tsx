@@ -24,18 +24,14 @@ import jwtDecode from 'jwt-decode';
 import './NavBar.css'
 import { useRouter } from 'next/navigation';
 
-
-const pages = [
-    { label: 'Home', link: '/Home' },
-    { label: 'Used Cars', link: '/UsedCars' },
-    { label: 'New Cars', link: '/NewCars' },
-];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-
-
+    const pages = [
+        { label: 'Home', link: '/Home' },
+        { label: 'Used Cars', link: '/UsedCars' },
+        { label: 'New Cars', link: '/NewCars' },
+    ];
 const NavBar: FC = () => {
     const router = useRouter();
+
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const [searchKeyword, setSearchKeyword] = useState('');
