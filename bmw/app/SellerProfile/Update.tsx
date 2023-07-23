@@ -10,11 +10,12 @@ type Props = {}
 
 interface CarsId{
     id:Number | null
+    setTrigger: (value: boolean) => void
 }
 const Update = (props: CarsId) => {
-  const [price ,setPrice] =useState<number |string>("")
-  const [image, setImage] = useState <String | null>(null)
-  const [color , setColor] =useState<String |"">("")
+  const [price ,setPrice] =useState<Number |string>("")
+  const [image, setImage] = useState <string >("")
+  const [color , setColor] =useState<string >("")
 
   const [open, setOpen] = useState<boolean |false>(false)
 
@@ -34,9 +35,10 @@ const Update = (props: CarsId) => {
 
     const handleSubmit = async () => {
     
-      // setTrigger(true);
+      props.setTrigger(true);
       try {
         await axios.put(`http://localhost:5000/usedcars/update/${props.id}`, info);
+        props.setTrigger(false)
       } catch (err) {
         console.log(err);
       }
@@ -60,38 +62,25 @@ const Update = (props: CarsId) => {
 
     
 
-      const handleChange =(e:any)=>{
-      setPrice(e.target.value)
-      setColor(e.target.value)
-      if(e.target.files){
-        handleImageUpload(e.target.files[0] )
-        console.log(e.target.files)
-       }
-     }
-    
-   
-
-    
-
   return (
-    <div>
+     <>
       <Button variant="outlined" onClick={handleClickOpen}>
         Update
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
 
-          <TextField autoFocus margin="dense"  id="name"  label="price"         variant="standard"  onChange={handleChange} />
-          <TextField autoFocus margin="dense"  id="name"  label="color"          variant="standard"  onChange={handleChange}/>
+          <TextField autoFocus margin="dense"  id="name"  label="price"         variant="standard"  onChange={(e) => setPrice(e.target.value)} />
+          <TextField autoFocus margin="dense"  id="name"  label="color"          variant="standard"  onChange={(e) => setColor(e.target.value)}/>
          
-          <input type='file' onChange={handleChange} />
+          <input type='file' onChange={(e)=>handleImageUpload(e.target.files[0])} />
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => { handleSubmit(); handleClose(); }}>Submit</Button>
+          <Button onClick={() => { handleSubmit() ;handleClose() }}>Submit</Button>
         </DialogActions>    
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }
 

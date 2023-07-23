@@ -30,6 +30,7 @@ model :string
 transmition : CarTransmition
 hp :Number
 carburant :CarCarburant
+onStock:onStock
 }
 
 enum CarCategory {
@@ -49,6 +50,10 @@ ESSENCE="ESSENCE",
 DIESEL="DIESEL"
 }
 
+enum onStock{
+    available="available",
+    sold="sold"
+}
 
 
 // const CarsData : Cars[]

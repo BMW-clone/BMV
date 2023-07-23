@@ -62,9 +62,13 @@ module.exports =(sequelize , DataTypes) =>{
             type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
             allowNull: false, 
             defaultValue: "pending",
+          },
+    
+          onStock:{
+            type: DataTypes.ENUM('sold', "available"),
+            allowNull:false,
+            defaultValue:"available"
           }
-    
-    
     })    
 
     return  UsedCars

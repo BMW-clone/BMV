@@ -47,18 +47,20 @@ const Page :FC= (props:Props) => {
     useEffect(()=>{
       userinfo()
     },[trigger])
-
+  
      //!get user info from token
   const userinfo = () => {
     const cookie = new Cookies();
     const token:Token = jwtDecoder(cookie.get("jwt-token"));
-    console.log("token",token.role==="seller");
-    if (token.role === "seller") {
+    console.log("token",token.role==="Seller");
+    if (token.role === "Seller") {
       console.log("seller")
+      console.log("username",token.username)
       axios
         .post("http://localhost:5000/seller/findOne", {
           username: token.username,
         })
+        
         .then((res:AxiosResponse  ) => {
           setData(res?.data);
           console.log(res.data)
@@ -86,13 +88,13 @@ const Page :FC= (props:Props) => {
           <div>
           </div>
           <div>
-           <UpdateSellerProfile id={id}/>
+           <UpdateSellerProfile id={id} setTrigger={setTrigger}/>
           </div>
         </div>
      
     </div>
         <div>
-            <UsedCarsOneSeller id={id}/>
+        <UsedCarsOneSeller id={id} />
         </div>
 
     </div>

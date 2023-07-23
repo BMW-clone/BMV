@@ -8,22 +8,32 @@ import DialogContent from '@mui/material/DialogContent';
 
 interface idSeller{
   idSeller:Number | null
+  setTrigger: (value: boolean) => void
+  
 }
 
-const Post=(props:idSeller) =>{
+
+
+
+const Post=(props:idSeller ) =>{
   
   const [price ,setPrice] =useState<Number |string >("")
   const [category,setCategory ] = useState<CarCategory |string>("")
-  const [color , setColor] =useState<String |string>("")
+  const [color , setColor] =useState<string >("")
   const [year , setYear] = useState <Number |string>("")
-  const [image, setImage] = useState <String >("")
+  const [image, setImage] = useState <string|null >(null)
   const [model,setModel]= useState<string>("")
-  const [mileage,setMileage] = useState<String |string>("")
+  const [mileage,setMileage] = useState<string >("")
   const [hp,setHp] =useState<Number | string>("")
   const [transmition,setTransmition] = useState<CarTransmition|string> ("")
   const [carburant , setCarburant ] = useState<CarCarburant |string> ("")
+  const [onStock , setOnStock ] = useState<onStock |string> ("")
 
+  
   const [open, setOpen] = useState<boolean |false>(false)
+
+  
+  
   
  
   const info = {
@@ -36,8 +46,12 @@ const Post=(props:idSeller) =>{
     mileage: mileage,
     hp: Number(hp),
     transmition: transmition,
-    carburant: carburant
+    carburant: carburant,
+    onStock : "available",
+    SellerId:props?.idSeller
   };
+  
+ 
   
   
 
@@ -49,7 +63,9 @@ const Post=(props:idSeller) =>{
     setOpen(false);
   };
 
+
   const handleImageUpload = (file:string) => {
+    
     const form = new FormData();
     form.append('file', file);
     form.append('upload_preset', 'bmwclone');
@@ -65,25 +81,26 @@ const Post=(props:idSeller) =>{
   }
 
 
-
-
-
-
   const handleSubmit = () => { 
+  props.setTrigger(true)
     axios
       .post("http://localhost:5000/usedcars/post",info)
       .then((res) => {
+      
         console.log(res);
+  props.setTrigger(false)
+        
       })
       .catch((err) => {
-        console.log(err);
+        console.log({err : err.message});
       });
   };
+
 
   return (
     
       <div>
-        <Button variant="outlined" onClick={() => handleClickOpen()}>
+        <Button variant="outlined" id='post' onClick={() => handleClickOpen()}>
           Post
         </Button>
         <Dialog open={open} onClose={handleClose}>
@@ -97,11 +114,13 @@ const Post=(props:idSeller) =>{
             <TextField autoFocus margin="dense" id="name" label="transmition" variant="standard" onChange={(e)=>setTransmition(e.target.value)} />
             <TextField autoFocus margin="dense" id="name" label="hp" variant="standard" onChange={(e)=>setHp(e.target.value)} />
             <TextField autoFocus margin="dense" id="name" label="carburant" variant="standard" onChange={(e)=>setCarburant(e.target.value)} />
+            <TextField autoFocus margin="dense" id="name" label="onStock" variant="standard" onChange={(e)=>setOnStock(e.target.value)} />
+
             <input type='file' onChange={(e)=>handleImageUpload(e.target.files[0])} />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => { handleSubmit(); handleClose() }}>Submit</Button>
+            <Button onClick={() => {  handleSubmit(); handleClose() }}>Submit</Button>
           </DialogActions>
         </Dialog>
       </div>

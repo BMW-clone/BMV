@@ -11,8 +11,10 @@ type idSeller={
 
 const UsedCarsOneSeller  = (props:idSeller ) => {
     const [data,setData]= useState <Cars[]> ([])
+    const [trigger, setTrigger] = useState<boolean |false> (false)
 
     console.log(props.id)
+
       useEffect(()=>{
         axios.get(`http://localhost:5000/usedcars/getall/${props.id}`)
         .then((res) => {
@@ -24,15 +26,19 @@ const UsedCarsOneSeller  = (props:idSeller ) => {
         .catch((err) => {
           console.log(err);
         });
-    }, [props.id])
+    }, [props.id , trigger])
+
+
 console.log("data", data)
+
+
    return (
     <div>
        <div>
-        <UsedCarsDetails  data={data}   />
+        <UsedCarsDetails  data={data}  setTrigger={setTrigger} />
       </div>
       <div>
-      <Post  idSeller={props.id} />
+      <Post  idSeller={props.id}  setTrigger={setTrigger} />
     </div>
     </div>
   

@@ -11,6 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 type idSeller={
     id:Number | null
+    setTrigger: (value: boolean) => void
 }
 export default function UpdateSellerProfile(props:idSeller) {
 
@@ -28,10 +29,11 @@ export default function UpdateSellerProfile(props:idSeller) {
       coverpic:coverpic
      }
   const handleSubmit = async () => {
-
+      props.setTrigger(true)
     try {
       console.log(info)
       await axios.put(`http://localhost:5000/seller/update/${props.id}`, info);
+      props.setTrigger(false)
     } catch (err) {
       console.log(err);
     }
@@ -89,7 +91,7 @@ export default function UpdateSellerProfile(props:idSeller) {
 
   return (
     <div>
-    <Button variant="outlined" onClick={handleClickOpen}>
+    <Button variant="outlined"  id="editprofile" onClick={handleClickOpen}>
       Edit profile
     </Button>
     <Dialog open={open} onClose={handleClose}>

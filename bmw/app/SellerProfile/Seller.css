@@ -94,8 +94,8 @@
 
 .coverImage {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5%;
+  left: 10%;
   border-radius: var(--br-8xs);
   width: 1040px;
   height: 355px;
@@ -132,17 +132,20 @@
 
 .profilePic {
   position: absolute;
-  top: 282px;
-  left: 457px;
-  width: 126px;
-  height: 127px;
+  top: 60%;
+  left: 55%;
+  width: 120px;
+  height: 120px;
+   border-radius: 50%;
+   border: 1.50px solid ;
 }
 
 .name {
   position: absolute;
-  top: 0;
-  left: 371px;
+  top: 23%;
+  left: 50%;
   font-weight: 600;
+  font-family:cursive;
 }
 
 .surName {
@@ -294,3 +297,79 @@
   margin-top: 1.3%;
   margin-left: 2%;
 }
+
+
+
+#post{
+  position: absolute;
+  left: 70%;
+  top: 80%;
+  border-radius: 10px;
+}
+
+
+#editprofile{
+  position: absolute;
+  left: 70%;
+  top: 74%;
+  border-radius: 10px;
+}
+
+
+#sellerInfos{
+  color: red ;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+ .PostDetails{
+  /* position: absolute;
+  left: 45%;
+  top: 90%; */
+  display: flex;
+  justify-content: center;
+position: absolute;
+left: 25%;
+top: 85%;
+
+padding: 2px 16px;
+}
+
+
+.PostDetails-container{
+  
+  margin:10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.sellerImageCar{
+  display: flex;
+  justify-content:left;
+  align-items: center;
+  height: 250px;
+  border-radius: 10px;
+  background-color: #ffffff00;
+  margin: 10px;
+
+
+
+}
+
+
+.pd-image{
+  max-width: 110%;
+    max-height: 110%;
+    display: block;
+}
+
+
+ .del-button {
+    background-color: #e74c3c;
+     color: white;
+     border: none;
+     border-radius: 5px;
+     padding: 5px 10px;
+     margin-right: 5px;
+     cursor: pointer;
+   }

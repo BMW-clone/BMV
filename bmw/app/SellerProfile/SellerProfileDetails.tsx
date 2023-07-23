@@ -25,17 +25,17 @@ const SellerProfileDetails:FC <DataSeller> =({id,firstname,lastname,username,ema
 <div>
         <div>
           <div className="banners"  >
-            <img className="coverImage" alt="hi" src= {coverpic} />
-            <img className="profilePic" alt="hi" src={profilepic} />
+            <img className="coverImage"  alt="hi" src= {coverpic} />
+            <img className="profilePic"  alt="hi" src={profilepic} />
             <div className="text1">
-              <div className="name">{firstname } {lastname}</div>
+              <div className='name' >{firstname } {lastname}</div>
              
             </div>
           </div>
           <div>
           </div>
           <div>
-           <UpdateSellerProfile id={id}/>
+           <UpdateSellerProfile id={id} setTrigger={setTrigger} />
           </div>
           <div>
       <UsedCarsOneSeller id= {id}/>
