@@ -1,9 +1,9 @@
 const { db } = require("../database");
-const cloudinary = require("../database/cloudinary");
 const {ACCESS_TOKEN_SECRET}=require("./jwtConfig.js")
 const jwt=require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const keygen = require('keygen');
+const { sendConfirmation } = require("./nodemailerConfig");
 
 module.exports={
     //! find specific user on login 
@@ -16,13 +16,18 @@ module.exports={
             }else{
                bcrypt.compare(password,user.dataValues.password,(err,result)=>{
                 if(result){
+                  if(!user.dataValues.isActive){
+                    res.status(404).json("Please check your email inbox to verify your account")
+                  }else{
                     const token = jwt.sign({
-                        username:user.dataValues.username,
-                        password:user.dataValues.password,
-                        role:user.dataValues.role,
-                        profilepic:user.dataValues.profilepic
-                    },ACCESS_TOKEN_SECRET)
-                    res.status(201).send(token)
+                      username:user.dataValues.username,
+                      password:user.dataValues.password,
+                      role:user.dataValues.role,
+                      profilepic:user.dataValues.profilepic
+                  },ACCESS_TOKEN_SECRET)
+                  res.status(201).send(token)
+                  }
+                   
                 }else{
                     res.send("Wrong password")                
                 }
@@ -46,11 +51,12 @@ module.exports={
           }
       },
     
-    
+ 
     //!signUp
     Add: async (req, res) => {
-      const { firstname, lastname, username, email, password, profilepic, role, phoneNumber, coverpic } = req.body
+      const { firstname, lastname, username, email, password,isActive, profilepic, role, phoneNumber, coverpic } = req.body
       const hashedPassword = await bcrypt.hash(password, 10)
+      const acCode= keygen.url(keygen.large)
       try {
         const user = await db.Client.create({
           firstname,
@@ -58,12 +64,15 @@ module.exports={
           username,
           email,
           password: hashedPassword,
+          isActive,
+          activationCode:acCode,
           profilepic,
           role,
           phoneNumber,
           coverpic,
         })
         res.status(201).json(user)
+        sendConfirmation(email,acCode)
       } catch (err) {
         console.log(err)
         res.status(500).json(err)
@@ -114,5 +123,57 @@ deleteClient: async (req, res) => {
         res.status(500).json(err)
       }
     },
+   
+
+    //update role client 
+
+
+  updateRole: async (req, res) => {
+
+     const {username}=req.params
+      const {role} = req.body
+      try {
+        const client = await db.Client.findOne({where: {username}})
+        if (!client) {
+          return res.status(404).json("user not found")
+        }
+        await client.update (req.body);
+        
+      
+  
+        res.status(200).json(client)
+      } catch (err) {
+        console.log("err", err)
+        res.status(500).json(err)
+      }
+    },
+
+
+
+
+
+
+
+
+    verifyUser: async (req,res)=>{
+      try{ 
+      const user= await db.Client.findOne({where:{activationCode:req.params.activationCode}})
+      if(!user){
+        res.send("Activation code is wrong")
+      }else{
+        await user.update({
+          isActive:true
+          
+        })
+        res.send("Account activated successfully")
+      }
+    }
+    catch(err){
+      console.log("err", err)
+      res.status(500).json(err)
+    }
+  }
+
   };
+
 

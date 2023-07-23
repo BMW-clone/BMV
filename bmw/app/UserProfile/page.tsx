@@ -1,10 +1,11 @@
-"use client"
-import { useEffect, useState } from 'react'
-// import Card from "./card/Card"
-import { useRouter } from 'next/router'
-import jwtDecoder from 'jwt-decode'
-import Cookies from "universal-cookie"
-import axios from "axios"
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import jwtDecoder from "jwt-decode";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import "../UserProfile/profile.css"
+
 type Props = {}
 
 interface UserData {
@@ -15,9 +16,8 @@ interface UserData {
   username: string
 }
 
-
 const Page = (props: Props) => {
-  const [data, setData] = useState<UserData>({} as UserData)
+  const [data, setData] = useState<UserData | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -26,24 +26,35 @@ const Page = (props: Props) => {
 
   const userinfo = () => {
     const cookie = new Cookies()
-    const token = jwtDecoder(cookie.get('jwt-token')) as { role: string, username: string }
+    const token = jwtDecoder(cookie.get("jwt-token")) as {
+      role: string
+      username: string
+    }
+ 
     if (token.role === "Client") {
-      axios.post<UserData>("http://localhost:5000/client/findOne", { username: token.username })
+      axios
+        .post<UserData>("http://localhost:5000/client/findOne", {
+          username: token.username,
+        })
         .then((res) => {
           setData(res.data)
         })
         .catch((err) => console.log(err))
-    } else return
+    } else {
+
+      setData(null)
+    }
   }
+
   const updateClick = () => {
     router.push("/UserProfile")
   }
 
-  return (
+  return data ? (
     <div className="banners">
       <img className="coverImage" alt="" src={data?.coverpic} />
       <div className="editProfile">
-        <div className="editProfile1" onClick={updateClick} >
+        <div className="editProfile1" onClick={updateClick}>
           Edit Profile
         </div>
       </div>
@@ -53,7 +64,7 @@ const Page = (props: Props) => {
         <div className="surName">@{data?.username}</div>
       </div>
     </div>
-  )
+  ) : null
 }
 
-export default Page 
+export default Page

@@ -5,7 +5,9 @@ import Cookies from "universal-cookie";
 import React, { useState, FC, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import "./SignIn.css";
-import Image from 'next/image';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 //!interfaces
 interface Decoded {
@@ -15,9 +17,11 @@ interface Decoded {
   profilepic: string
   exp: number,
 }
-//!----------------------
 
+//!----------------------
 const Login: FC = () => {
+  //!Successfully logged in
+  const notify2 = () => toast.success("Successfully logged in")
   useEffect(() => {
     const logout = () => {
       let cookie = new Cookies()
@@ -25,6 +29,9 @@ const Login: FC = () => {
     }
     logout()
   }, [])
+  //! error 
+  const notify = (error: string) => toast.error(`${error}`.toLocaleUpperCase())
+  //!router
   const router = useRouter()
   //! initialize cookies
   const cookies = new Cookies()
@@ -33,16 +40,14 @@ const Login: FC = () => {
   //!entered login info
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  //!logout function
-  const logout = () => {
-    setUser(null)
-    cookies.remove("jwt-token")
-  }
   //!login function
   const login = () => {
     axios.post("http://localhost:5000/client/login", { username, password })
       .then((res: AxiosResponse) => {
-        console.log("res", res.data);
+        if ((res.data) === "Wrong password") {
+          notify(res.data)
+        }
+        console.log("res", res.data)
         if (res.data) {
           //!decoding token
           const decoded: Decoded = jwtDecoder(res.data)
@@ -53,12 +58,20 @@ const Login: FC = () => {
             expires: new Date(decoded.exp * 1000)
 
           })
+          notify2()
           router.push("/UserProfile")
         }
       }).catch((err: AxiosError) => {
+        if (err.response?.data === "Please check your email inbox to verify your account") {
+          notify(err.response?.data)
+        }
+
         if (err.response?.data === "user not found") {
           axios.post("http://localhost:5000/seller/login", { username, password })
             .then((res: AxiosResponse) => {
+              if ((res.data) === "Wrong password") {
+                notify(res.data)
+              }
               console.log("data", res.data);
               if (res.data) {
                 //!decoding token
@@ -70,6 +83,7 @@ const Login: FC = () => {
                 cookies.set("jwt-token", res.data, {
                   expires: new Date(decoded.exp * 1000)
                 })
+                notify2()
                 router.push("/SellerProfile")
               }
             }).catch((err: AxiosError) => {
@@ -77,6 +91,9 @@ const Login: FC = () => {
 
                 axios.post("http://localhost:5000/admin/login", { username, password })
                   .then((res: AxiosResponse) => {
+                    if ((res.data) === "Wrong password") {
+                      notify(res.data)
+                    }
                     if (res.data) {
                       //!decoding token
                       const decoded: Decoded = jwtDecoder(res.data)
@@ -86,10 +103,13 @@ const Login: FC = () => {
                       cookies.set("jwt-token", res.data, {
                         expires: new Date(decoded.exp * 1000)
                       })
+                      notify2()
                       router.push("/Dashboard")
                     }
                   }).catch((err: AxiosError) => {
-                    console.log(err)
+                    //!user not found
+                    notify(`${err.response?.data}`.toUpperCase())
+                    console.log(err.response?.data)
                   })
               }
             })
@@ -130,10 +150,23 @@ const Login: FC = () => {
         <div className="continue-wrapper-si" onClick={() => {
           login()
         }}>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <div className="continue-si">Continue</div>
         </div>
       </div>
     </div>
-  )}
+  )
+}
 
 export default Login

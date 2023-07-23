@@ -1,17 +1,34 @@
-// //  //! SellerProfile Details
+
+
+ enum  Disel{
+    ESSENCE="ESSENCE",
+    DIESEL="DIESEL"
+   
+  }
+enum  Transmission{
+    ESSENCE="MANUAL",
+    DIESEL="AUTOMATIC"
+   
+  }
+  
  
-// interface Props  {
-//     id:Number | null
-//     firstname:string
-//     lastname: string
-//     username:string
-//     email:string
-//     password:Number
-//     profilepic:string
-//     role:string
-//     phoneNumber:Number
-//     coverpic:string
-// }
+ interface NewCarsData {
+     id:number,
+    brand:string ,
+    price:number,
+    category:string ,
+    color:string ,
+    year:string ,
+    image:string ,
+    mileage:string ,
+    model:string,
+    transmition:Transmission ,
+    hp:number,
+    carburant:Disel,
+    rate:number 
+
+ }
+
 
 
 
@@ -58,3 +75,35 @@ enum onStock{
 
 // const CarsData : Cars[]
 // type data = Props[] 
+
+
+interface ClientData{
+  id:number,
+   firstname:string,
+   lastname:string,
+   username:string,
+   emailname:string,
+   password:string,
+   profilpic:string,
+   role:string,
+   phoneNumber:string,
+   coverpic:string,
+
+}
+
+
+
+interface SellerData{
+  id:number,
+  firstname:string,
+  lastname:string,
+  usertname:string,
+  emailname:string,
+  password:string,
+  profilpic:string,
+  role:string,
+  phoneNumber:string,
+  coverpic:string,
+
+}
+

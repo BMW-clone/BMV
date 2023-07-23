@@ -1,4 +1,4 @@
-const cloudinary = require("../database/cloudinary");
+
 const {sequelize,db}= require("../database");
 const { Op } = require('sequelize');
 
