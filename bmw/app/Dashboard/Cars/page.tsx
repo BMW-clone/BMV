@@ -1,9 +1,19 @@
 import {FC,useState ,useEffect} from 'react';
+
+
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
 import './Cars.css'
 
 
@@ -12,6 +22,7 @@ interface Props{
   data :NewCarsData[]
   el:NewCarsData
   delete:NewCarsData
+  update:NewCarsData
 }
 
 
@@ -19,9 +30,16 @@ interface Props{
 export const Cars=(props:Props )=>{
 
   const [price,setPrice]=useState('')
-   const[row,setRow]=useState("")
-  const handleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-    setPrice(event.target.value)}
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   console.log('p',props);
@@ -62,19 +80,55 @@ export const Cars=(props:Props )=>{
    
       
         },
+
+    
       
       
         {
           renderCell: (cellValues :any) => {
             
             return (
-             
-              <IconButton aria-label="share"    onClick={()=> {props.update(props.el.price)}}   >
-             
+              <div>
+
+         <IconButton type="submit" variant="outlined"  onClick={handleClickOpen} >
+      < EditIcon/>
+      </IconButton>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle> New Price</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+   
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Price"
+            onChange={(e)=>{setPrice(e.target.value)}}
+           
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+
+        <IconButton onClick={handleClose}>
+           <CloseIcon/>
+          </IconButton>
+
+          <IconButton   >
+           <DoneIcon       onClick={()=> {props.update(props.el.id,price);console.log("id",props.el.id) }}/>
+          </IconButton>
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
+              </div>
             
-                <EditIcon 
-                />
-              </IconButton>
             
             ); 
           }
@@ -82,12 +136,11 @@ export const Cars=(props:Props )=>{
         },
       
         {
-          field: "",
+          field: "delete",
           type: 'actions',
           renderCell: (cellValues:any ) => {
             return (
           
-            
               <IconButton aria-label="delete" type="submit"   onClick={()=> {props.delete(props.el.id); console.log("id",props.el.id)} }>
                 <DeleteIcon    />
               </IconButton>

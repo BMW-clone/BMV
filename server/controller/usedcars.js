@@ -16,10 +16,11 @@ const CarsInfo = {
   //! get one seller used cars
   getAllSeller: async (req, res) => {
     const SellerId=req.params.idSeller
+    console.log(SellerId,"SellerId")
     console.log("seller id ",SellerId);
     try {
       const cars = await db.usedcars.findAll({where:{SellerId}})
-      console.log(cars)
+      console.log("cars",cars)
       res.json(cars);
     } catch (err) {
       res.status(500).json({ error: "Internal server error" });
@@ -29,6 +30,7 @@ const CarsInfo = {
 
   deleteCar: async (req, res) => {
     const { id } = req.params;
+    console.log("id car",id)
     try {
       await db.usedcars.destroy({ where: { id } });
       res.json({ message: "car deleted successfully" });
@@ -36,23 +38,10 @@ const CarsInfo = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
-
-  postCar: async (req, res) => {
-    const {
-      price,
-      category,
-      color,
-      year,
-      image,
-      mileage,
-      model,
-      transmition,
-      hp,
-      carburant,
-      SellerId
-    } = req.body; 
-    try {
-      const car = await db.usedcars.create({
+  
+  
+    postCar: async (req, res) => {
+      const {
         price,
         category,
         color,
@@ -63,15 +52,38 @@ const CarsInfo = {
         transmition,
         hp,
         carburant,
-        SellerId
-
-      });
-      res.json(car);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  },
+        SellerId,
+      } = req.body;
+  
+      const onStock = "available"; 
+  
+      try {
+        const car = await db.usedcars.create({
+          price: price,
+          category: category,
+          color: color,
+          year: year,
+          image: image,
+          mileage: mileage,
+          model: model,
+          transmition: transmition,
+          hp: hp,
+          carburant: carburant,
+          onStock: onStock, 
+          SellerId: SellerId,
+        });
+  
+        res.json(car);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    },
+  
+    
+  
+  
+  
 
   updateCar: async (req, res) => {
     const { id } = req.params;

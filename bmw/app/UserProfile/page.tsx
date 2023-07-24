@@ -25,20 +25,19 @@ interface CarData {
 }
 
 const Page = (props: Props) => {
-  const [data, setData] = useState<UserData | null>(null)
-  const router = useRouter()
+  const [data, setData] = useState<UserData | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    userinfo()
-  }, [])
-  
+    userinfo();
+  }, []);
 
   const userinfo = () => {
-    const cookie = new Cookies()
+    const cookie = new Cookies();
     const token = jwtDecoder(cookie.get("jwt-token")) as {
-      role: string
-      username: string
-    }
+      role: string;
+      username: string;
+    };
 
     if (token.role === "Client") {
       axios
@@ -46,50 +45,52 @@ const Page = (props: Props) => {
           username: token.username,
         })
         .then((res) => {
-          setData(res.data)
+          setData(res.data);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     } else {
-
-      setData(null)
+      setData(null);
     }
-  }
+  };
 
   const updateClick = () => {
-    router.push("/UserProfile")
-  }
+    router.push("/UserProfile");
+  };
 
   return (
     <div className="profilePage">
-    {data ? (
-      <div className="banners">
-        <img className="coverImage" alt="" src={data?.coverpic} />
-        <div className="editProfile">
-          <div className="editProfile1" onClick={updateClick}>
-            Edit Profile
+      {data ? (
+        <div className="banners">
+          <img className="coverImage" alt="" src={data?.coverpic} />
+          <div className="editProfile">
+            <div className="editProfile1" onClick={updateClick}>
+              Edit Profile
+            </div>
+          </div>
+          <img className="profilePic" alt="" src={data?.profilepic} />
+          <div className="text1">
+            <div className="name">{data?.firstname + " " + data?.lastname}</div>
+            <div className="surName">@{data?.username}</div>
           </div>
         </div>
-        <img className="profilePic" alt="" src={data?.profilepic} />
-        <div className="text1">
-          <div className="name">{data?.firstname + " " + data?.lastname}</div>
-          <div className="surName">@{data?.username}</div>
-        </div>
+      ) : null}
+
+      {/* Display cards for cars */}
+      <div className="product-details">
+        {carData.map((car) => (
+          <div key={car.id} className="card1">
+            <img className="rectangle-icon" src={car.image} alt="" />
+            <div className="name1">{car.brand}</div>
+            <div className="surName1">{car.description}</div>
+          </div>
+        ))}
       </div>
-    ) : null
-    }
-    <div className="product-details">
-      {carData.map((car) => (
-        <div key={car.id} className="card1">
-          <img className="rectangle-icon" src={car.image} alt="" />
-          <div className="name1">{car.brand}</div>
-          <div className="surName1">{car.description}</div>
-        </div>
-      ))}
     </div>
-  </div>
-)
-}
-  
+  );
+};
+
+export default Page;
+
+ 
    
 
-export default Page

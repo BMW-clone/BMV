@@ -1,3 +1,4 @@
+
 const {DataTypes,sequelize} = require("sequelize");
 module.exports=(sequelize,DataTypes)=>{
     const Client = sequelize.define("Client",{
@@ -22,6 +23,13 @@ module.exports=(sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         allowNull:false,
     },
+    isActive:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false,
+    },
+    activationCode:{
+        type:DataTypes.STRING,
+    },
     profilepic:{
         type:DataTypes.STRING,
         allowNull:false,
@@ -38,9 +46,13 @@ module.exports=(sequelize,DataTypes)=>{
     coverpic:{
         type:DataTypes.STRING,
         allowNull:false,
-    }
-}
-    )
-    return Client
+
     
+    
+}},
+);
+
+ 
+    return Client
+
 }

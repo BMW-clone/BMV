@@ -1,54 +1,63 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Card from '../card/Card';
+import Card, { CardProps } from '../card/Card';
 import axios from 'axios';
-import Cart from '../cart/cart';
 
-import '../newcars/newcars.css';
+import '../newcars/Styles.css';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { error } from 'console';
 
 
 interface Car {
-  id: number;
-  brand: string;
-  price: number;
-  category: string;
-  color: string;
-  year: number;
-  image: string;
-  mileage: number;
-  model: string;
-  transmission: string;
-  hp: number;
-  carburant: string;
-  rate: number;
+    id: number;
+    brand: string;
+    price: number;
+    category: string;
+    color: string;
+    year: number;
+    image: string;
+    mileage: number;
+    model: string;
+    transmission: string;
+    hp: number;
+    carburant: string;
+    rate: number;
+    rating:number;
 }
 const Newcars = () => {
     const [newcars, setNewcars] = useState<Car[]>([]);
     const [categoryFilter, setCategoryFilter] = useState('');
     const [priceFilter, setPriceFilter] = useState('');
     const [transmition, setTransmission] = useState('');
-    const [cartItems,setCartItems]=useState<Car[]>([])
+    const [currentRating, setCurrentRating] = useState<number | null>(null); 
 
-    const handleAddToCart = (car: Car) => {
-        const isCarInCart = cartItems.some((item) => item.id === car.id);
-        if (!isCarInCart) {
-          setCartItems((prevCartItems) => [...prevCartItems, car]);
-        } else {
-          console.log(`Car with ID ${car.id} is already in the cart.`);
+    const handleRatingChange = async (newRating: number, newCarId: number) => {
+        setCurrentRating(newRating); 
+
+        try {
+         
+            await axios.post(`http://localhost:5000/rating/newcars/newCarId/rate`, {
+                newCarId,
+                clientId: 2,
+            });
+
+            setNewcars((prevCars) =>
+            prevCars.map((car) =>
+                car.id === newCarId ? { ...car, rating: newRating } : car
+            )
+        );
+        console.log('Car rated successfully!');
+    } catch (error) {
+            console.error('Error rating car:', error);
         }
-      }
-     const handleRemoveFromCart = (carId: number) => {
-    setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== carId));
-  }
+    };
 
     const getCars = () => {
         axios
-            .get('http://localhost:3000/newcars')
+            .get('http://localhost:5000/newcars')
             .then((res) => {
-                setNewcars(res.data);
+                const carsWithRatings = res.data?.map((car) => ({ ...car, rating: car.rate }));
+                setNewcars(carsWithRatings);
             })
             .catch((err) => {
                 console.log(err);
@@ -91,7 +100,7 @@ const Newcars = () => {
 
     const applyCategoryFilter = (filterValue: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterByCategory', { category: filterValue })
+            .post('http://localhost:5000/newcars/filterByCategory', { category: filterValue })
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -102,7 +111,7 @@ const Newcars = () => {
 
     const applyPriceFilter = (price: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterCarsByPrice', { price })
+            .post('http://localhost:5000/newcars/filterCarsByPrice', { price })
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -113,7 +122,7 @@ const Newcars = () => {
 
     const applyTransmitionFilter = (searchValue: any) => {
         axios
-            .post('http://localhost:3000/newcars/filterCarsByTransmition', { transmition: searchValue })
+            .post('http://localhost:5000/newcars/filterCarsByTransmition', { transmition: searchValue })
             .then((res) => {
                 setNewcars(res.data);
             })
@@ -181,6 +190,9 @@ const Newcars = () => {
                     {newcars.map((car) => (
                         <Card
                             key={car.id}
+                            {...car}
+                            rate={currentRating || car.rate}
+                            onRatingChange={(newRating) => handleRatingChange(newRating, car.id)}
                             brand={car.brand}
                             price={car.price}
                             category={car.category}
@@ -192,17 +204,13 @@ const Newcars = () => {
                             transmission={car.transmission}
                             hp={car.hp}
                             carburant={car.carburant}
-                            rate={car.rate}
-                            onAddToCart={()=>handleAddToCart(car)}
                         />
                     ))}
                 </div>
-            </Grid>
-            <Grid item xs={12} md={2}>
-                <Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />
             </Grid>
         </Grid>
     );
 };
 
 export default Newcars;
+
