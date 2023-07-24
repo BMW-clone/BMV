@@ -22,7 +22,7 @@ export default function RootLayout({
   const path = usePathname()
 
   const condition = () => {
-    if (path === "/" || path === "/SignUp" || path === "/confirm" || path === `/confirm/${activationcode.substring(9)}`) {
+    if (path === "/" || path === "/SignUp" || path === "/confirm" || path === `/confirm/${activationcode.substring(9)}` || path === "/Payment" || path === "/Payment/Success" || path === "/Payment/Fail" || path === "/test") {
       return
     } else return <NavBar />
   }

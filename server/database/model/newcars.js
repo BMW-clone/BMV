@@ -1,4 +1,4 @@
-const { sequelize  ,DataTypes } = require('sequelize');
+const { sequelize,DataTypes } = require('sequelize');
 module.exports=(sequelize,DataTypes)=>{
 const  NewCars = sequelize.define('NewCars', {
  
@@ -61,11 +61,6 @@ carburant:{
 
   },
 
- rate :{
-    type:DataTypes.INTEGER,
-    allowNull: true
-
- }
   
 }, 
 
@@ -73,6 +68,7 @@ carburant:{
 {
 
 });
+
 return NewCars
  
 }

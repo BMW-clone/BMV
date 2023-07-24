@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const keygen = require('keygen');
 const { sendConfirmation } = require("./nodemailerConfig");
 
+
 module.exports={
     //! find specific user on login 
     getOne: async (req,res)=>{
@@ -17,7 +18,7 @@ module.exports={
                bcrypt.compare(password,user.dataValues.password,(err,result)=>{
                 if(result){
                   if(!user.dataValues.isActive){
-                    res.status(500).send("Please check your email inbox to verify your account")
+                    res.status(404).json("Please check your email inbox to verify your account")
                   }else{
                     const token = jwt.sign({
                       username:user.dataValues.username,

@@ -1,3 +1,4 @@
+
 const {DataTypes,sequelize} = require("sequelize");
 module.exports=(sequelize,DataTypes)=>{
     const Client = sequelize.define("Client",{
@@ -45,9 +46,13 @@ module.exports=(sequelize,DataTypes)=>{
     coverpic:{
         type:DataTypes.STRING,
         allowNull:false,
-    }
-}
-    )
-    return Client
+
     
+    
+}},
+);
+
+ 
+    return Client
+
 }

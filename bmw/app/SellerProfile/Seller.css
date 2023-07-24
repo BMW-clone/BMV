@@ -94,8 +94,8 @@
 
 .coverImage {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5%;
+  left: 10%;
   border-radius: var(--br-8xs);
   width: 1040px;
   height: 355px;
@@ -132,17 +132,20 @@
 
 .profilePic {
   position: absolute;
-  top: 282px;
-  left: 457px;
-  width: 126px;
-  height: 127px;
+  top: 60%;
+  left: 55%;
+  width: 120px;
+  height: 120px;
+   border-radius: 50%;
+   border: 1.50px solid ;
 }
 
 .name {
   position: absolute;
-  top: 0;
-  left: 371px;
+  top: 23%;
+  left: 50%;
   font-weight: 600;
+  font-family:cursive;
 }
 
 .surName {
@@ -294,58 +297,79 @@
   margin-top: 1.3%;
   margin-left: 2%;
 }
-.product-details {
+
+
+
+#post{
   position: absolute;
-  top: 700px;
-  left: 20%;
-  width: 60%;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  left: 70%;
+  top: 80%;
+  border-radius: 10px;
 }
 
-.product-details h4 {
-  font-size: 20px;
-  margin-bottom: 10px;
+
+#editprofile{
+  position: absolute;
+  left: 70%;
+  top: 74%;
+  border-radius: 10px;
 }
 
-.product-details p {
-  font-size: 16px;
-  color: #333;
+
+#sellerInfos{
+  color: red ;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.buttons button {
-  margin-right: 10px;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+
+ .PostDetails{
+  /* position: absolute;
+  left: 45%;
+  top: 90%; */
+  display: flex;
+  justify-content: center;
+position: absolute;
+left: 25%;
+top: 85%;
+
+padding: 2px 16px;
 }
 
-.buttons button:hover {
-  background-color: #1B032A;
-  color: white;
+
+.PostDetails-container{
+  
+  margin:10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
-.home {
-  cursor: pointer;
-  text-decoration: underline;
+.sellerImageCar{
+  display: flex;
+  justify-content:left;
+  align-items: center;
+  height: 250px;
+  border-radius: 10px;
+  background-color: #ffffff00;
+  margin: 10px;
+
+
+
 }
 
-.home:hover {
-  color: #1B032A;
+
+.pd-image{
+  max-width: 110%;
+    max-height: 110%;
+    display: block;
 }
-.profilePage {
-  background-color: #f7f7f7; 
-  color: #333;
-}
-.product-details {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  }
+
+
+ .del-button {
+    background-color: #e74c3c;
+     color: white;
+     border: none;
+     border-radius: 5px;
+     padding: 5px 10px;
+     margin-right: 5px;
+     cursor: pointer;
+   }
