@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
-
 import './Card.css';
 
 export interface CardProps {
@@ -20,11 +19,11 @@ export interface CardProps {
     carburant: string;
     rate: number;
     onRatingChange: (newRating: number) => void;
+    onAddToCart: () => void
 }
 
 const Cards: React.FC<CardProps> = (props) => {
-  const { brand, price, category, color, year, image, mileage, model, transmission, hp, carburant, rate, onRatingChange } = props;
-
+  const { brand, price, category, color, year, image, mileage, model, transmission, hp, carburant, rate, onRatingChange , onAddToCart} = props;
   const handleRatingChange = (newRating: number) => {
     onRatingChange(newRating);
   };
@@ -72,7 +71,9 @@ const Cards: React.FC<CardProps> = (props) => {
         <div className='btn-container'>
           
           <div className="stars-container">{renderStars()}</div>
-          <button className="btn-2">Order Now</button>
+          <button className='btn-2' onClick={onAddToCart}>
+            Add to Cart
+          </button>
         </div>
       </Card>
     </div>
