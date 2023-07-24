@@ -1,4 +1,4 @@
-
+"use client"
 import {FC,useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 
 import  './Client.css'
+import { colors } from '@mui/material';
 
 
 interface Props{
@@ -25,7 +26,7 @@ interface Props{
 
 }
 
-export const Client=(props:Props )=>{
+export  const Client=(props:Props )=>{
 
   const [open, setOpen] = useState(false);
   const [role,setRole]=useState("")
@@ -47,15 +48,13 @@ export const Client=(props:Props )=>{
         
         { field: 'id', headerName: 'ID', width: 90 },
     {
-      field: ' firstname',
+      field: 'firstname',
       headerName: 'FirstName',
       width: 150,
       editable: true,
     },
-
-
     {
-        field: ' lastname',
+        field: 'lastname',
         headerName: 'LastName',
         width: 150,
         editable: true,
@@ -67,9 +66,6 @@ export const Client=(props:Props )=>{
       editable: true,
     },
   
-  
-    
-  
     {
       field: 'role',
       headerName: 'Role',
@@ -79,9 +75,6 @@ export const Client=(props:Props )=>{
   
 
   
-  
-  
-   
     
     {
       renderCell:(cellValues:any) => {
@@ -124,7 +117,7 @@ export const Client=(props:Props )=>{
     },
   
     {
-      field: "",
+      field: "delete",
       type: 'actions',
       renderCell: (cellValues:any) => {
         return (
@@ -157,7 +150,7 @@ export const Client=(props:Props )=>{
     
     <div>
       <div className='client'>
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: '80%'  fontcolors="white"}}>
    
       <DataGrid 
     

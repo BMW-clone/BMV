@@ -1,6 +1,4 @@
-import {FC,useState ,useEffect} from 'react';
-
-
+import {useState ,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
