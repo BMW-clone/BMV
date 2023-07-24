@@ -19,6 +19,7 @@ export interface CardProps {
     carburant: string;
     rate: number;
     onRatingChange: (newRating: number) => void;
+    onAddToCart: () => void
 }
 
 const Cards: React.FC<CardProps> = (props) => {
