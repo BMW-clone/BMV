@@ -166,10 +166,10 @@ export const Cars=(props:Props )=>{
     
     <div>
       <div className='statistics '>
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: '80%' }}>
    
       <DataGrid 
-    
+    sx={{fontFamily:"Plus Jakarta Sans, sans-serif", color:'#EEF1F6',}}
         rows={rows}
         columns ={columns}
         initialState={{

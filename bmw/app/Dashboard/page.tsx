@@ -3,11 +3,12 @@ import {FC,useState ,useEffect} from 'react';
 import axios ,{ AxiosError, AxiosResponse }  from 'axios';
 import {Cars} from "./Cars/page"
 import {Client} from "./Client/page"
-// import {Seller} from './Seller/page'
+import {Seller} from './Seller/page'
 // import {SlideBar} from './SlideBar/page'
-// import {Add} from './Add/page'
+import {Add} from './Add/page'
 import './Dashboard.css'
 import { SlideBar } from './SlideBar/page';
+
 // import { DashHome } from './DashHome/page';
 type Props={}
 
@@ -32,11 +33,13 @@ useEffect(()=>{
 
 selectAllNew()
 selectAllClient()
+selectAllSeller()
 
 
 },[refetch])
 console.log (newCar)
 console.log(dataClient)
+console.log(dataSeller)
 
 
 //get all new cars
@@ -187,7 +190,7 @@ const updateSellerRole=(username:SellerData,role:SellerData)=>{
 
     }  else if (view === "seller") {
       return (<>
-          <div> </div>
+          <div> {dataSeller.map((el:SellerData,i:number)=> <Seller el={el} key={i} data ={dataSeller } delete={deleteSeller}  />)}</div>
           <button className="btn1"onClick={() => changeView("client")}>Client</button>
           <button className="btn1"onClick={() => changeView("seller")}>Seller</button>
           <button className="btn1"onClick={() => changeView("cars")}>Cars</button>
