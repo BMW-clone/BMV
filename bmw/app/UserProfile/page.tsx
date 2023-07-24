@@ -1,10 +1,11 @@
-"use strict";
+"use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import jwtDecoder from "jwt-decode";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import "../UserProfile/profile.css"
+import { carData } from "./data"
 
 type Props = {}
 
@@ -16,6 +17,13 @@ interface UserData {
   username: string
 }
 
+interface CarData {
+  id: number;
+  image: string;
+  brand: string;
+  description: string;
+}
+
 const Page = (props: Props) => {
   const [data, setData] = useState<UserData | null>(null)
   const router = useRouter()
@@ -23,6 +31,7 @@ const Page = (props: Props) => {
   useEffect(() => {
     userinfo()
   }, [])
+  
 
   const userinfo = () => {
     const cookie = new Cookies()
@@ -50,21 +59,37 @@ const Page = (props: Props) => {
     router.push("/UserProfile")
   }
 
-  return data ? ( 
-    <div className="banners">
-      <img className="coverImage" alt="" src={data?.coverpic} />
-      <div className="editProfile">
-        <div className="editProfile1" onClick={updateClick}>
-          Edit Profile
+  return (
+    <div className="profilePage">
+    {data ? (
+      <div className="banners">
+        <img className="coverImage" alt="" src={data?.coverpic} />
+        <div className="editProfile">
+          <div className="editProfile1" onClick={updateClick}>
+            Edit Profile
+          </div>
+        </div>
+        <img className="profilePic" alt="" src={data?.profilepic} />
+        <div className="text1">
+          <div className="name">{data?.firstname + " " + data?.lastname}</div>
+          <div className="surName">@{data?.username}</div>
         </div>
       </div>
-      <img className="profilePic" alt="" src={data?.profilepic} />
-      <div className="text1">
-        <div className="name">{data?.firstname + " " + data?.lastname}</div>
-        <div className="surName">@{data?.username}</div>
-      </div>
+    ) : null
+    }
+    <div className="product-details">
+      {carData.map((car) => (
+        <div key={car.id} className="card1">
+          <img className="rectangle-icon" src={car.image} alt="" />
+          <div className="name1">{car.brand}</div>
+          <div className="surName1">{car.description}</div>
+        </div>
+      ))}
     </div>
-  ) : null 
+  </div>
+)
 }
+  
+   
 
 export default Page

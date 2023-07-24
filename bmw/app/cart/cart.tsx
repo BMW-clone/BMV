@@ -1,4 +1,6 @@
 import React from 'react'
+import './cart.css'
+
 
 interface Car {
     id:number;
@@ -22,7 +24,7 @@ interface CartProps{
 
 const cart: React.FC<CartProps>=({cartItems,onRemoveFromCart})=>{
     return (
-        <div>
+        <div className="shopping-cart">
           <h2>Shopping List!</h2>
           {cartItems.map((car)=>
           <div key={car.id} className='cart-item'>
@@ -42,6 +44,7 @@ const cart: React.FC<CartProps>=({cartItems,onRemoveFromCart})=>{
           </div>
           <div className="buttons">
           <button onClick={() => onRemoveFromCart(car.id)}>Remove</button>
+          <button >Buy!</button>
         </div>
         </div>
           )}
