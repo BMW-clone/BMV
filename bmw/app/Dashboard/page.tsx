@@ -1,12 +1,14 @@
 'use client'
 import {FC,useState ,useEffect} from 'react';
 import axios ,{ AxiosError, AxiosResponse }  from 'axios';
-import './Dashboard.css'
 import {Cars} from "./Cars/page"
 import {Client} from "./Client/page"
-import {Seller} from './Seller/page'
-
-
+// import {Seller} from './Seller/page'
+// import {SlideBar} from './SlideBar/page'
+// import {Add} from './Add/page'
+import './Dashboard.css'
+import { SlideBar } from './SlideBar/page';
+// import { DashHome } from './DashHome/page';
 type Props={}
 
 
@@ -21,6 +23,7 @@ export interface CarsProps {
 
 const Dashboard :FC=(props:Props) =>{
 
+  const [view, changeView] = useState("client")
   const [newCar, setNewCar] = useState<NewCarsData[] >([] )
   const [refetch,setReftch]=useState<boolean |false >(false)
   const [dataClient,setDataClient]=useState<ClientData[]>([])
@@ -62,6 +65,39 @@ const updateNewcar=(id:NewCarsData,price:NewCarsData)=>{
      .catch((err:AxiosError)=>{console.log(err)})
   
   }
+
+
+  const addCar=(brand:NewCarsData,price:NewCarsData,color:NewCarsData,year:NewCarsData,image:NewCarsData,
+    mileage:NewCarsData,model:NewCarsData,transmition:NewCarsData,hp:NewCarsData,carburant:NewCarsData
+    )=>{
+
+    axios
+    .post(`http://localhost:5000/newcars/add`,{
+      
+    brand:brand,
+    price:price,
+    color:color,
+    year:year,
+    image:image,
+    mileage:mileage,
+    model:model,
+    transmition:transmition,
+    hp:hp,
+    carburant:carburant,
+
+    })
+    .then((response:AxiosResponse)=>{setReftch(!refetch)})
+    .catch((err:AxiosError)=>{console.log(err);})
+  }
+
+
+
+
+
+
+
+
+
 
 // client 
 
@@ -122,29 +158,91 @@ const updateSellerRole=(username:SellerData,role:SellerData)=>{
 
 
 
-
-
-
-  return (
-
-
-    <div>
  
 
-      <div className="admin-dashboard">
-      <div className="admin-dashboard-home"/>
-      <div className="top-market-statistics">Welcome To BMW Statistique </div>
+ const renderView=()=>{
 
-      {newCar.map((el:NewCarsData,i:number)=> <Cars  el={el} key={i} data ={newCar } delete={deleteNewCar} update={updateNewcar} />)}  
+    
+     if (view === "client") {
+        return (<>
+                    <div>     
+  {dataClient.map((e:ClientData,i:number)=> <Client e={e} key={i} data ={dataClient } delete={deleteClient}  update={updateRole}/>)} 
+</div>
+            <button className="btn1" onClick={() => changeView("client")}>Client </button>
+            <button className="btn1" onClick={() => changeView("seller")}>Seller</button>
+            <button className="btn1"onClick={() => changeView("cars")}>Cars </button>
+            <button className="btn1"onClick={() => changeView("add")}>Add New Cars </button>
+        </>
+        )
+    } else if (view === "cars") {
+        return (<>
+            <div>         {newCar.map((el:NewCarsData,i:number)=> <Cars  el={el} key={i} data ={newCar } delete={deleteNewCar} update={updateNewcar} />)}</div>
+            <button className="btn1"onClick={() => changeView("client")}>Client</button>
+            <button className="btn1"onClick={() => changeView("seller")}>Seller</button>
+            <button className="btn1"onClick={() => changeView("cars")}>Cars</button>
+            <button className="btn1"onClick={() => changeView("add")}>Add New Cars </button>
+        </>
+        )
 
+
+    }  else if (view === "seller") {
+      return (<>
+          <div> </div>
+          <button className="btn1"onClick={() => changeView("client")}>Client</button>
+          <button className="btn1"onClick={() => changeView("seller")}>Seller</button>
+          <button className="btn1"onClick={() => changeView("cars")}>Cars</button>
+          <button className="btn1"onClick={() => changeView("add")}>Add New Cars </button>
+      </>
+      )
+  }
+    
+    
+    else {
+        return (<>
+            <div>
+      
+              </div>
+            <button  className ="btn1" onClick={() => changeView("client")}>client</button>
+            <button  className ="btn1" onClick={() => changeView("seller")}>seller</button>
+            <button  className ="btn1"   onClick={() => changeView("cars")}>cars</button>
+            <button className="btn1"onClick={() => changeView("add")}>Add New Cars </button>
+        </>)
+    }
+  }
+
+
+
+    return (
+   
+      <div>
+           {renderView()}
+
+    
+       
+    </div>
+    
+
+
+    )
+    }
+
+
+
+
+
+
+
+    
 
   
-        </div>
+
         
-        </div>
+
+   
+     
+     
+   
 
 
-
-  )
-  }
-  export default Dashboard
+export default Dashboard
+  
