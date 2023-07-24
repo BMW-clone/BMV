@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const keygen = require('keygen');
 const { sendConfirmation } = require("./nodemailerConfig");
 
+
 module.exports={
     //! find specific user on login 
     getOne: async (req,res)=>{

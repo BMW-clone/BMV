@@ -11,24 +11,40 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
+<<<<<<< HEAD
+import Link from 'next/link'; import SearchIcon from '@mui/icons-material/Search';
+=======
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
+>>>>>>> 08626a669209a2dbcfeb77de9718b98c3268b216
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import jwtDecode from 'jwt-decode';
 import './NavBar.css'
+<<<<<<< HEAD
+
+
+=======
 import { useRouter } from 'next/navigation';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+>>>>>>> 08626a669209a2dbcfeb77de9718b98c3268b216
 
 const pages = [
     { label: 'Home', link: '/Home' },
     { label: 'Used Cars', link: '/UsedCars' },
     { label: 'New Cars', link: '/NewCars' },
 ];
+<<<<<<< HEAD
+
+
+const NavBar: FC = () => {
+    const router= useRouter();
+=======
 const NavBar: FC = () => {
     const router = useRouter();
+>>>>>>> 08626a669209a2dbcfeb77de9718b98c3268b216
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -215,7 +231,6 @@ const NavBar: FC = () => {
                         >
                         </Menu>
                     </Box>
-
                     <Typography
                         variant="h5"
                         noWrap
@@ -246,8 +261,11 @@ const NavBar: FC = () => {
 
                         />
                     </Search>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 08626a669209a2dbcfeb77de9718b98c3268b216
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
