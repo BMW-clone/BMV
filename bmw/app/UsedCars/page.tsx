@@ -25,6 +25,7 @@ const UsedCarsList = () => {
   const [priceFilter, setPriceFilter] = useState("");
   const [transmition, setTransmission] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<Car[]>([])
   const toggleDropdown = () => {
       setIsDropdownOpen((prevState) => !prevState);
   };
@@ -100,7 +101,12 @@ const UsedCarsList = () => {
           .catch((err) => {
               console.log(err);
           });
+
   };
+  
+ const addToCart = (car: Car) => {
+    setCartItems((prevItems) => [...prevItems, car])
+  }
   return (
     <Grid container spacing={2} className='allProduct-wrap'>
         <Grid item xs={12} md={2}>
@@ -172,12 +178,13 @@ const UsedCarsList = () => {
                         hp={car.hp}
                         carburant={car.carburant}
                         rate={car.rate}
+                        onBuy={() => addToCart(car)}
                     />
                 ))}
             </div>
         </Grid>
     </Grid>
-);
-};
+)
+}
 
 export default UsedCarsList;
